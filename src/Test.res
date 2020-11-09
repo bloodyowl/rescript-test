@@ -1,12 +1,21 @@
 open ReScriptJs.Js
 
 @bs.val external exit: int => unit = "process.exit"
+@bs.val external process: Undefined.t<{..}> = "process"
 
-let red = text => `\u001b[31m${text}\u001b[0m`
-let green = text => `\u001b[32m${text}\u001b[0m`
-let pink = text => `\u001b[34m${text}\u001b[0m`
-let yellow = text => `\u001b[33m${text}\u001b[0m`
-let grey = text => `\u001b[2m${text}\u001b[0m`
+let exit = code => {
+  if(typeof(process) != #undefined) {
+    exit(code)
+  } else {
+    Console.log(`# Exit code: ${code->Int.toString}`)
+  }
+}
+
+let red = text => typeof(process) != #undefined ? `\u001b[31m${text}\u001b[0m` : text
+let green = text => typeof(process) != #undefined ? `\u001b[32m${text}\u001b[0m` : text
+let pink = text => typeof(process) != #undefined ? `\u001b[34m${text}\u001b[0m` : text
+let yellow = text => typeof(process) != #undefined ? `\u001b[33m${text}\u001b[0m` : text
+let grey = text => typeof(process) != #undefined ? `\u001b[2m${text}\u001b[0m` : text
 
 let passText = green(`PASS`)
 let failText = red(`FAIL`)
