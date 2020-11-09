@@ -1,0 +1,9 @@
+#!/usr/bin/env node
+"use strict";
+
+let path = require("path");
+let files = process.argv.slice(1);
+
+files.forEach(function (file) {
+  require(path.resolve(process.cwd(), file));
+});

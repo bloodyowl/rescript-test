@@ -1,0 +1,24 @@
+{
+  "name": "rescript-test",
+  "version": "0.1.0",
+  "bin": {
+    "retest": "bin/retest"
+  },
+  "scripts": {
+    "clean": "bsb -clean-world",
+    "build": "bsb -make-world",
+    "watch": "bsb -make-world -w",
+    "test": "bin/retest test/*.js"
+  },
+  "keywords": [
+    "BuckleScript"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "bs-platform": "^8.3.2"
+  },
+  "dependencies": {
+    "rescript-js": "^0.1.11"
+  }
+}
