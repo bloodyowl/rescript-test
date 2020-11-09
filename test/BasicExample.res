@@ -24,13 +24,6 @@ test("DeepEquals", () => {
   let b = {username: "user", id: "a"}
   equal(a.username, b.username)
   deepEqual(a, b)
-
-  test("DeepEquals subtest", () => {
-    let a = {username: "user", id: "a"}
-    let b = {username: "user", id: "a"}
-    equal(a.username, b.username)
-    deepEqual(a, b)
-  })
 })
 
 testAsync("Async", cb => {

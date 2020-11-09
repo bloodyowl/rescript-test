@@ -57,13 +57,6 @@ test("DeepEquals", () => {
   let b = {username: "user", id: "a"}
   equal(a.username, b.username)
   deepEqual(a, b)
-
-  test("DeepEquals subtest", () => {
-    let a = {username: "user", id: "a"}
-    let b = {username: "user", id: "a"}
-    equal(a.username, b.username)
-    deepEqual(a, b)
-  })
 })
 ```
 
@@ -83,14 +76,11 @@ Outputs:
 3/4: DeepEquals
   PASS - No message
   PASS - No message
-4/5: Async
-  PASS - No message
-5/5: DeepEquals subtest
-  PASS - No message
+4/4: Async
   PASS - No message
 
-# Ran 5 tests (8 assertions)
-# 4 passed
+# Ran 4 tests (6 assertions)
+# 3 passed
 # 1 failed
 ```
 
