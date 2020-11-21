@@ -1,3 +1,9 @@
+## 0.3.0
+
+Changes:
+
+- Cleaner setup & teardown (dc63e65)
+
 ## 0.2.0
 
 Changes:
