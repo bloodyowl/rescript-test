@@ -34,10 +34,16 @@ $ retest test/MyTest.bs.js
 ```rescript
 open Test
 
+let intEqual = (~message=?, a: int, b: int) =>
+  assertion(~message?, ~operator="intEqual", (a, b) => a === b, a, b)
+
+let stringEqual = (~message=?, a: string, b: string) =>
+  assertion(~message?, ~operator="stringEqual", (a, b) => a == b, a, b)
+
 test("Equals", () => {
   let a = 1
   let b = 1
-  equal(a, b)
+  intEqual(a, b)
 })
 
 let isCharCode = (a, b) => {
@@ -52,11 +58,16 @@ test("Custom comparator", () => {
 })
 
 type user = {username: string, id: string}
+
+let userEq = (a, b) => a.id === b.id
+let userEqual = (~message=?, a: user, b: user) =>
+  assertion(~message?, ~operator="userEqual", userEq, a, b)
+
 test("DeepEquals", () => {
   let a = {username: "user", id: "a"}
   let b = {username: "user", id: "a"}
-  equal(a.username, b.username)
-  deepEqual(a, b)
+  stringEqual(a.username, b.username)
+  userEqual(a, b)
 })
 ```
 

@@ -2,10 +2,10 @@ open ReScriptJs.Js
 open Test
 
 let intEqual = (~message=?, a: int, b: int) =>
-  assertion(~message?, ~operator="equal", (a, b) => a === b, a, b)
+  assertion(~message?, ~operator="intEqual", (a, b) => a === b, a, b)
 
 let stringEqual = (~message=?, a: string, b: string) =>
-  assertion(~message?, ~operator="deepEqual", (a, b) => a == b, a, b)
+  assertion(~message?, ~operator="stringEqual", (a, b) => a == b, a, b)
 
 test("Equals", () => {
   let a = 1
@@ -28,7 +28,7 @@ type user = {username: string, id: string}
 
 let userEq = (a, b) => a.id === b.id
 let userEqual = (~message=?, a: user, b: user) =>
-  assertion(~message?, ~operator="deepEqual", userEq, a, b)
+  assertion(~message?, ~operator="userEqual", userEq, a, b)
 
 test("DeepEquals", () => {
   let a = {username: "user", id: "a"}
