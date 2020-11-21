@@ -47,14 +47,7 @@ let formatMessage = message =>
   | None => grey(` - No message`)
   }
 
-let assertion = (
-  type left right,
-  ~message=?,
-  ~operator=?,
-  compare: (left, right) => bool,
-  a: left,
-  b: right,
-) => {
+let assertion = (~message=?, ~operator=?, compare, a, b) => {
   if compare(a, b) {
     incr(passCounter)
     Console.log(`  ${passText}${formatMessage(message)}`)

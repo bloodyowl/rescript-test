@@ -2,15 +2,18 @@ open ReScriptJs.Js
 open Belt
 open Test
 
-let equal = (type t, ~message=?, a: t, b: t) =>
-  assertion(~message?, ~operator="equal", (a, b) => a === b, a, b)
+let equal = (~message=?, a, b) => assertion(~message?, ~operator="equal", (a, b) => a === b, a, b)
 
-let deepEqual = (type t, ~message=?, a: t, b: t) =>
+let deepEqual = (~message=?, a, b) =>
   assertion(~message?, ~operator="deepEqual", (a, b) => a == b, a, b)
+
+let equalAsString = (~message=?, a, b) =>
+  assertion(~message?, ~operator="equal", (a, b) => a->Int.toString === b, a, b)
 
 testAsync("Async", cb => {
   let _ = setTimeout(() => {
     equal(1, 1)
+    equalAsString(1, "1")
     cb()
   }, 100)
 })

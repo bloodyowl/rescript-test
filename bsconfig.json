@@ -19,6 +19,7 @@
   },
   "suffix": ".bs.js",
   "warnings": {
-    "error": "+101"
+    "error": "+101",
+    "number": "-44"
   }
 }

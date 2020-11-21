@@ -1,10 +1,9 @@
 open ReScriptJs.Js
 open Test
 
-let equal = (type t, ~message=?, a: t, b: t) =>
-  assertion(~message?, ~operator="equal", (a, b) => a === b, a, b)
+let equal = (~message=?, a, b) => assertion(~message?, ~operator="equal", (a, b) => a === b, a, b)
 
-let deepEqual = (type t, ~message=?, a: t, b: t) =>
+let deepEqual = (~message=?, a, b) =>
   assertion(~message?, ~operator="deepEqual", (a, b) => a == b, a, b)
 
 testAsync("Async", cb => {

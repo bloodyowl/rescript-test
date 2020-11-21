@@ -129,11 +129,11 @@ let stringMapEqual = (~message=?, a, b) =>
 
 Those that be useful to transition from an existing testing library, but we do not recommend polymorphic checks.
 
-  ```reason
-let equal = (type t, ~message=?, a: t, b: t) =>
-  assertion(~message?, ~operator="equal", (a, b) => a === b, a, b)
+```reason
+let equal = (~message=?, a, b) => assertion(~message?, ~operator="equal", (a, b) => a === b, a, b)
 
-let deepEqual = (type t, ~message=?, a: t, b: t) =>
-  assertion(~message?, ~operator="deepEqual", (a, b) => a == b, a, b)
+let deepEqual = (~message=?, a, b) =>
+assertion(~message?, ~operator="deepEqual", (a, b) => a == b, a, b)
 ```
+
 </details>
