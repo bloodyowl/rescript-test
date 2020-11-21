@@ -93,11 +93,36 @@ Outputs:
 
 ### Operators
 
-- `equal(a, b, ~message: string=?)`
-- `deepEqual(a, b, ~message: string=?)`
 - `throws(func, ~message: string=?, ~test: exn => bool=?)`
 - `doesNotThrow(func, ~message: string=?)`
 - `assertion(comparator, a, b, ~operator: string=?, ~message: string=?)`
 - `pass()`
 - `fail()`
 - `todo(string)`
+
+### Creating assertion shorthands
+
+```rescript
+let stringMapEqual = (~message=?, a, b) =>
+  assertion(
+    ~message?,
+    ~operator="stringMapEqual",
+    (a, b) => Belt.Map.String.eq(a, b, (a, b) => a === b),
+    a,
+    b,
+  )
+```
+
+<details>
+  <summary>Generic equal/deepEqual (not recommended)</summary>
+
+Those that be useful to transition from an existing testing library, but we do not recommend polymorphic checks.
+
+  ```reason
+let equal = (type t, ~message=?, a: t, b: t) =>
+  assertion(~message?, ~operator="equal", (a, b) => a === b, a, b)
+
+let deepEqual = (type t, ~message=?, a: t, b: t) =>
+  assertion(~message?, ~operator="deepEqual", (a, b) => a == b, a, b)
+```
+</details>

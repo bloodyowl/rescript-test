@@ -1,6 +1,12 @@
 open ReScriptJs.Js
 open Test
 
+let equal = (type t, ~message=?, a: t, b: t) =>
+  assertion(~message?, ~operator="equal", (a, b) => a === b, a, b)
+
+let deepEqual = (type t, ~message=?, a: t, b: t) =>
+  assertion(~message?, ~operator="deepEqual", (a, b) => a == b, a, b)
+
 testAsync("Async", cb => {
   let _ = setTimeout(() => {
     pass()
@@ -55,4 +61,17 @@ testWithSetupAndTeardown("Setup & teardown 2", () => {
   incr(someRef)
   incr(someRef)
   equal(someRef.contents, 2)
+})
+
+let stringMapEqual = (~message=?, a, b) =>
+  assertion(
+    ~message?,
+    ~operator="stringMapEqual",
+    (a, b) => Belt.Map.String.eq(a, b, (a, b) => a === b),
+    a,
+    b,
+  )
+
+test("Cutom operator Equals", () => {
+  stringMapEqual(Belt.Map.String.fromArray([("a", 1)]), Belt.Map.String.fromArray([("a", 1)]))
 })

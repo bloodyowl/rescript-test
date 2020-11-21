@@ -1,6 +1,12 @@
 open ReScriptJs.Js
 open Test
 
+let equal = (type t, ~message=?, a: t, b: t) =>
+  assertion(~message?, ~operator="equal", (a, b) => a === b, a, b)
+
+let deepEqual = (type t, ~message=?, a: t, b: t) =>
+  assertion(~message?, ~operator="deepEqual", (a, b) => a == b, a, b)
+
 testAsync("Async", cb => {
   let _ = setTimeout(() => {
     equal(1, 2)

@@ -4,7 +4,7 @@ open ReScriptJs.Js
 @bs.val external process: Undefined.t<{..}> = "process"
 
 let exit = code => {
-  if(typeof(process) != #undefined) {
+  if typeof(process) != #undefined {
     exit(code)
   } else {
     Console.log(`# Exit code: ${code->Int.toString}`)
@@ -105,12 +105,6 @@ let throws = (~message=?, ~test: option<exn => bool>=?, func: unit => unit) => {
     }
   }
 }
-
-let equal = (type t, ~message=?, a: t, b: t) =>
-  assertion(~message?, ~operator="equal", (a, b) => a === b, a, b)
-
-let deepEqual = (type t, ~message=?, a: t, b: t) =>
-  assertion(~message?, ~operator="deepEqual", (a, b) => a == b, a, b)
 
 let todo = message => {
   Console.log(`  ${todoText}${formatMessage(Some(message))}`)
