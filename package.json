@@ -8,7 +8,7 @@
     "clean": "bsb -clean-world",
     "build": "bsb -make-world",
     "watch": "bsb -make-world -w",
-    "test": "bin/retest test/*.js"
+    "test": "bin/retest test/*.bs.js"
   },
   "keywords": [
     "BuckleScript"

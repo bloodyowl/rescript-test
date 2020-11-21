@@ -1,6 +1,4 @@
 let assertion: (~message: string=?, ~operator: string=?, ('a, 'b) => bool, 'a, 'b) => unit
-let equal: (~message: string=?, 'a, 'a) => unit
-let deepEqual: (~message: string=?, 'a, 'a) => unit
 let pass: (~message: string=?, unit) => unit
 let fail: (~message: string=?, unit) => unit
 let todo: string => unit

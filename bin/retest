@@ -2,8 +2,14 @@
 "use strict";
 
 let path = require("path");
-let files = process.argv.slice(1);
+let files = process.argv.slice(2);
 
-files.forEach(function (file) {
-  require(path.resolve(process.cwd(), file));
-});
+if (files[0] === "--esm") {
+  Promise.all(files.slice(1).map(function (file) {
+    return import(path.resolve(process.cwd(), file));
+  }))
+} else {
+  files.forEach(function (file) {
+    require(path.resolve(process.cwd(), file));
+  });
+}

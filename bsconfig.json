@@ -14,11 +14,12 @@
   ],
   "bs-dependencies": ["rescript-js"],
   "package-specs": {
-    "module": "es6-global",
+    "module": "commonjs",
     "in-source": true
   },
   "suffix": ".bs.js",
   "warnings": {
-    "error": "+101"
+    "error": "+101",
+    "number": "-44"
   }
 }

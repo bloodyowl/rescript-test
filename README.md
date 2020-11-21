@@ -34,10 +34,16 @@ $ retest test/MyTest.bs.js
 ```rescript
 open Test
 
+let intEqual = (~message=?, a: int, b: int) =>
+  assertion(~message?, ~operator="intEqual", (a, b) => a === b, a, b)
+
+let stringEqual = (~message=?, a: string, b: string) =>
+  assertion(~message?, ~operator="stringEqual", (a, b) => a == b, a, b)
+
 test("Equals", () => {
   let a = 1
   let b = 1
-  equal(a, b)
+  intEqual(a, b)
 })
 
 let isCharCode = (a, b) => {
@@ -52,11 +58,16 @@ test("Custom comparator", () => {
 })
 
 type user = {username: string, id: string}
+
+let userEq = (a, b) => a.id === b.id
+let userEqual = (~message=?, a: user, b: user) =>
+  assertion(~message?, ~operator="userEqual", userEq, a, b)
+
 test("DeepEquals", () => {
   let a = {username: "user", id: "a"}
   let b = {username: "user", id: "a"}
-  equal(a.username, b.username)
-  deepEqual(a, b)
+  stringEqual(a.username, b.username)
+  userEqual(a, b)
 })
 ```
 
@@ -93,11 +104,36 @@ Outputs:
 
 ### Operators
 
-- `equal(a, b, ~message: string=?)`
-- `deepEqual(a, b, ~message: string=?)`
 - `throws(func, ~message: string=?, ~test: exn => bool=?)`
 - `doesNotThrow(func, ~message: string=?)`
 - `assertion(comparator, a, b, ~operator: string=?, ~message: string=?)`
 - `pass()`
 - `fail()`
 - `todo(string)`
+
+### Creating assertion shorthands
+
+```rescript
+let stringMapEqual = (~message=?, a, b) =>
+  assertion(
+    ~message?,
+    ~operator="stringMapEqual",
+    (a, b) => Belt.Map.String.eq(a, b, (a, b) => a === b),
+    a,
+    b,
+  )
+```
+
+<details>
+  <summary>Generic equal/deepEqual (not recommended)</summary>
+
+Those that be useful to transition from an existing testing library, but we do not recommend polymorphic checks.
+
+```reason
+let equal = (~message=?, a, b) => assertion(~message?, ~operator="equal", (a, b) => a === b, a, b)
+
+let deepEqual = (~message=?, a, b) =>
+assertion(~message?, ~operator="deepEqual", (a, b) => a == b, a, b)
+```
+
+</details>
