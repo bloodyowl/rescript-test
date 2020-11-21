@@ -46,20 +46,51 @@ test("DeepEquals", () => {
   })
 })
 
-let someRef = ref(0)
+let testWithSetup = testWith(~setup=() => ref(0))
 
-let testWithSetupAndTeardown = test(~setup=() => someRef := 0, ~teardown=() => someRef := 0)
-
-testWithSetupAndTeardown("Setup & teardown", () => {
+testWithSetup("Setup", someRef => {
   incr(someRef)
   equal(someRef.contents, 1)
 })
 
-testWithSetupAndTeardown("Setup & teardown 2", () => {
+testWithSetup("Setup", someRef => {
   equal(someRef.contents, 0)
   incr(someRef)
   incr(someRef)
   equal(someRef.contents, 2)
+})
+
+let testWithSetupAndTeardown = testWith(~setup=() => ref(0), ~teardown=someRef => someRef := 0)
+
+testWithSetupAndTeardown("Setup & teardown", someRef => {
+  incr(someRef)
+  equal(someRef.contents, 1)
+})
+
+testWithSetupAndTeardown("Setup & teardown 2", someRef => {
+  equal(someRef.contents, 0)
+  incr(someRef)
+  incr(someRef)
+  equal(someRef.contents, 2)
+})
+
+let testAsyncWithSetupAndTeardown = testAsyncWith(
+  ~setup=() => ref(0),
+  ~teardown=someRef => someRef := 0,
+)
+
+testAsyncWithSetupAndTeardown("Async setup & teardown", (someRef, callback) => {
+  incr(someRef)
+  equal(someRef.contents, 1)
+  callback()
+})
+
+testAsyncWithSetupAndTeardown("Async setup & teardown 2", (someRef, callback) => {
+  equal(someRef.contents, 0)
+  incr(someRef)
+  incr(someRef)
+  equal(someRef.contents, 2)
+  callback()
 })
 
 let stringMapEqual = (~message=?, a, b) =>

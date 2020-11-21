@@ -116,7 +116,7 @@ let fail = (~message=?, ()) => {
   Console.log(`    ...`)
 }
 
-let testAsync = (~setup=?, ~teardown=?, name, ~timeout=5_000, func) => {
+let testAsync = (name, ~timeout=5_000, func) => {
   if running.contents {
     Console.error(
       red(`# Cannot add testAsync("${name}", ...), tests must be defined at the top level`),
@@ -135,10 +135,6 @@ let testAsync = (~setup=?, ~teardown=?, name, ~timeout=5_000, func) => {
               Console.log(`  ${failText}${formatMessage(message)}`)
               resolve()
             }, timeout)
-            switch setup {
-            | Some(setup) => setup()
-            | None => ()
-            }
             func(() => {
               clearTimeout(timeoutId)
               resolve()
@@ -146,16 +142,6 @@ let testAsync = (~setup=?, ~teardown=?, name, ~timeout=5_000, func) => {
                 incr(testFailedCounter)
               } else {
                 incr(testPassedCounter)
-              }
-              try {
-                switch teardown {
-                | Some(teardown) => teardown()
-                | None => ()
-                }
-              } catch {
-              | exn =>
-                Console.error(exn)
-                exit(1)
               }
             })
           } catch {
@@ -168,7 +154,26 @@ let testAsync = (~setup=?, ~teardown=?, name, ~timeout=5_000, func) => {
   }
 }
 
-let test = (~setup=?, ~teardown=?, name, func) => {
+let testAsyncWith = (~setup, ~teardown=?, name, ~timeout=?, func) => {
+  testAsync(name, ~timeout?, callback => {
+    let value = setup()
+    func(value, () => {
+      try {
+        switch teardown {
+        | Some(teardown) => teardown(value)
+        | None => ()
+        }
+      } catch {
+      | exn =>
+        Console.error(exn)
+        exit(1)
+      }
+      callback()
+    })
+  })
+}
+
+let test = (name, func) => {
   if running.contents {
     Console.error(red(`# Cannot add test("${name}", ...), tests must be defined at the top level`))
   } else {
@@ -180,15 +185,7 @@ let test = (~setup=?, ~teardown=?, name, func) => {
         Promise.make((resolve, _reject) => {
           testText(name, index)
           try {
-            switch setup {
-            | Some(setup) => setup()
-            | None => ()
-            }
             func()
-            switch teardown {
-            | Some(teardown) => teardown()
-            | None => ()
-            }
           } catch {
           | exn =>
             Console.error(exn)
@@ -203,6 +200,17 @@ let test = (~setup=?, ~teardown=?, name, func) => {
         })
       })
   }
+}
+
+let testWith = (~setup, ~teardown=?, name, func) => {
+  test(name, () => {
+    let value = setup()
+    func(value)
+    switch teardown {
+    | Some(teardown) => teardown(value)
+    | None => ()
+    }
+  })
 }
 
 setTimeout(() => {

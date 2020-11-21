@@ -99,8 +99,10 @@ Outputs:
 
 ### Tests
 
-- `test(~setup=?, ~teardown=?, name, body)`
-- `testAsync(~setup=?, ~teardown=?, name, body)`
+- `test(name, body)`
+- `testWith(~setup: unit => 'a, ~teardown: 'a => unit=?, name, body: 'a => unit)`
+- `testAsync(name, body)`
+- `testAsyncWith(~setup: unit => 'a, ~teardown: 'a => unit=?, name, body: ('a, cb) => unit)`
 
 ### Operators
 
@@ -137,3 +139,16 @@ assertion(~message?, ~operator="deepEqual", (a, b) => a == b, a, b)
 ```
 
 </details>
+
+### Create tests with setup and teardown
+
+The `setup` function returns a clean context for the test, the `teardown` function resets it.
+
+```rescript
+let testWithRef = testWith(~setup=() => ref(0), ~teardown=someRef => someRef := 0)
+
+testWithRef("Setup & teardown", someRef => {
+  incr(someRef)
+  equal(someRef.contents, 1)
+})
+```
