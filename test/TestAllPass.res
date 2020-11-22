@@ -28,7 +28,6 @@ test("Custom comparator", () => {
   let a = "a"
 
   assertion(~message="Char code should match", ~operator="isCharCode", isCharCode, a, 97.0)
-  assertion(~message="Char code should match", ~operator="isCharCode", isCharCode, a, 98.0)
 })
 
 type user = {username: string, id: string}

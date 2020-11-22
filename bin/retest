@@ -17,6 +17,7 @@ async function start() {
     let port = await getPort()
     globalThis.retestHttp = (req, res) => res.status(404).end("ReScript Test HTTP isn't configured")
     globalThis.server = express()
+    globalThis.server.disable("x-powered-by")
     globalThis.server.use(cors())
     globalThis.server.use((req, res) => {
       globalThis.retestHttp(req, res)
