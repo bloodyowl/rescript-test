@@ -209,6 +209,8 @@ You can pass a handler function that takes a `req` and a `res` (they are typed a
 
 You can create a global handler or rewrite it for each specific test.
 
+**Important note**: HTTP mocking only applies when running the tests in a node environment using the `retest` CLI.
+
 ```rescript
 testAsync("Mock HTTP requests", callback => {
   http((req, res) => {
