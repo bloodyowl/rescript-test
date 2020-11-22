@@ -19,6 +19,7 @@
     "bs-platform": "^8.3.2"
   },
   "dependencies": {
+    "jsdom": "^16.4.0",
     "rescript-js": "^0.1.11"
   }
 }

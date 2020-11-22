@@ -2,14 +2,20 @@
 "use strict";
 
 let path = require("path");
-let files = process.argv.slice(2);
+let args = process.argv.slice(2);
+let { JSDOM } = require("jsdom")
 
-if (files[0] === "--esm") {
-  Promise.all(files.slice(1).map(function (file) {
-    return import(path.resolve(process.cwd(), file));
-  }))
-} else {
-  files.forEach(function (file) {
-    require(path.resolve(process.cwd(), file));
-  });
+let options = {
+  "--with-dom": "--with-dom"
 }
+
+if (file.includes(options["--with-dom"])) {
+  var jsdom = new JSDOM("<!DOCTYPE html>");
+  globalThis.window = jsdom.window;
+  globalThis.document = jsdom.window.document;
+  globalThis.jsdom = jsdom
+}
+
+args.filter(item => !options[item]).forEach(function (file) {
+  require(path.resolve(process.cwd(), file));
+});
