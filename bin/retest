@@ -9,7 +9,7 @@ let options = {
   "--with-dom": "--with-dom"
 }
 
-if (file.includes(options["--with-dom"])) {
+if (args.includes(options["--with-dom"])) {
   var jsdom = new JSDOM("<!DOCTYPE html>");
   globalThis.window = jsdom.window;
   globalThis.document = jsdom.window.document;
