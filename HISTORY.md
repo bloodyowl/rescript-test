@@ -1,3 +1,9 @@
+## 0.5.0
+
+Fixes:
+
+- Add HTTP mocking support (5313313)
+
 ## 0.4.1
 
 Fixes:
