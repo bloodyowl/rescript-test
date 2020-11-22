@@ -202,8 +202,8 @@ testWithReact("Can render", container => {
     )
   )
 
-  let atomValue = container->DOM.findBySelectorAndTextContent("div", "hello")
-  isTrue(atomValue->Option.isSome)
+  let div = container->DOM.findBySelectorAndTextContent("div", "hello")
+  isTrue(div->Option.isSome)
 })
 ```
 
