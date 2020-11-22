@@ -2,6 +2,13 @@ open ReScriptJs.Js
 
 @bs.val external exit: int => unit = "process.exit"
 @bs.val external process: Undefined.t<{..}> = "process"
+type globalThis
+@bs.val external globalThis: globalThis = "globalThis"
+@bs.set external setRetestHttp: (globalThis, ({..}, {..}) => unit) => unit = "retestHttp"
+
+let http = cb => {
+  setRetestHttp(globalThis, cb)
+}
 
 let exit = code => {
   if typeof(process) != #undefined {

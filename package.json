@@ -11,14 +11,20 @@
     "test": "bin/retest --with-dom test/*.bs.js"
   },
   "keywords": [
-    "BuckleScript"
+    "BuckleScript",
+    "ReScript",
+    "Test"
   ],
-  "author": "",
+  "author": "bloodyowl <bloodyowl@icloud.com>",
   "license": "MIT",
   "devDependencies": {
-    "bs-platform": "^8.3.2"
+    "bs-platform": "^8.3.2",
+    "rescript-request": "^1.0.2"
   },
   "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "get-port": "^5.1.1",
     "jsdom": "^16.4.0",
     "rescript-js": "^0.1.11"
   }

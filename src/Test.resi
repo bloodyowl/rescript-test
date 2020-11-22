@@ -5,6 +5,8 @@ let todo: string => unit
 let doesNotThrow: (~message: string=?, unit => unit) => unit
 let throws: (~message: string=?, ~test: exn => bool=?, unit => unit) => unit
 
+let http: (({..}, {..}) => unit) => unit
+
 let testAsync: (string, ~timeout: int=?, (unit => unit) => unit) => unit
 
 let test: (string, unit => unit) => unit

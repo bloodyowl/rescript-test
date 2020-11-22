@@ -13,6 +13,7 @@
     }
   ],
   "bs-dependencies": ["rescript-js"],
+  "bs-dev-dependencies": ["rescript-request", "rescript-future"],
   "package-specs": {
     "module": "commonjs",
     "in-source": true
