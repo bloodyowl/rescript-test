@@ -1,3 +1,9 @@
+## 0.4.1
+
+Fixes:
+
+- Fix `with-dom` accessible properties (d67f090)
+
 ## 0.4.0
 
 Changes:
