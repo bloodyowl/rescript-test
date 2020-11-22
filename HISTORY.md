@@ -1,3 +1,9 @@
+## 0.4.0
+
+Changes:
+
+- Add `--with-dom` option (5a75812, 829cfa3)
+
 ## 0.3.0
 
 Changes:
