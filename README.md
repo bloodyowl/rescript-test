@@ -239,3 +239,7 @@ testAsync("My test", (cb) => (
   cb(~planned=2, ())
 ))
 ```
+
+### Env file
+
+Add a `retest.env.js` to your project root directory for any setup.

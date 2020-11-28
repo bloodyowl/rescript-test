@@ -5,41 +5,53 @@ let path = require("path");
 let express = require("express");
 let cors = require("cors");
 let getPort = require("get-port");
+let fs = require("fs");
 let args = process.argv.slice(2);
-let { JSDOM, ResourceLoader } = require("jsdom")
+let { JSDOM, ResourceLoader } = require("jsdom");
 
 let options = {
-  "--with-dom": "--with-dom"
-}
+  "--with-dom": "--with-dom",
+};
 
 async function start() {
   if (args.includes(options["--with-dom"])) {
-    let port = await getPort()
-    globalThis.retestHttp = (req, res) => res.status(404).end("ReScript Test HTTP isn't configured")
-    globalThis.server = express()
-    globalThis.server.disable("x-powered-by")
-    globalThis.server.use(cors())
+    let port = await getPort();
+    globalThis.retestHttp = (req, res) =>
+      res.status(404).end("ReScript Test HTTP isn't configured");
+    globalThis.server = express();
+    globalThis.server.disable("x-powered-by");
+    globalThis.server.use(cors());
     globalThis.server.use((req, res) => {
-      globalThis.retestHttp(req, res)
-    })
-    globalThis.server.listen(port)
+      globalThis.retestHttp(req, res);
+    });
+    globalThis.server.listen(port);
     var jsdom = new JSDOM("<!DOCTYPE html>", {
       resources: new ResourceLoader({
         proxy: `http://localhost:${port}`,
         strictSSL: false,
         userAgent: "ReScriptTest",
-      })
+      }),
     });
-    Object.defineProperties(globalThis, Object.fromEntries(
-      Object.entries(Object.getOwnPropertyDescriptors(jsdom.window))
-        .filter(([key, _value]) => !globalThis.hasOwnProperty(key))
-    ))
-    globalThis.jsdom = jsdom
+    Object.defineProperties(
+      globalThis,
+      Object.fromEntries(
+        Object.entries(Object.getOwnPropertyDescriptors(jsdom.window)).filter(
+          ([key, _value]) => !globalThis.hasOwnProperty(key)
+        )
+      )
+    );
+    globalThis.jsdom = jsdom;
   }
 
-  args.filter(item => !options[item]).forEach(function (file) {
-    require(path.resolve(process.cwd(), file));
-  });
+  if (fs.existsSync(path.join(process.cwd(), "retest.env.js"))) {
+    require(path.join(process.cwd(), "retest.env.js"));
+  }
+
+  args
+    .filter((item) => !options[item])
+    .forEach(function (file) {
+      require(path.resolve(process.cwd(), file));
+    });
 }
 
-start()
+start();
