@@ -1,3 +1,9 @@
+## 0.5.1
+
+Features:
+
+- Add async `planned` count (9ee7c4d)
+
 ## 0.5.0
 
 Fixes:
