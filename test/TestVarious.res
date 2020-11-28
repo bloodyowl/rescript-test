@@ -62,3 +62,35 @@ test("DeepEquals", () => {
   deepEqual(a, b)
   todo("Check that user is ok")
 })
+
+testAsync("Async with planned under", cb => {
+  let _ = setTimeout(() => {
+    equal(1, 1)
+    equalAsString(1, "1")
+    cb(~planned=0, ())
+  }, 100)
+})
+
+testAsync("Async with planned exact", cb => {
+  let _ = setTimeout(() => {
+    equal(1, 1)
+    equalAsString(1, "1")
+    cb(~planned=2, ())
+  }, 100)
+})
+
+testAsync("Async with planned over", cb => {
+  let _ = setTimeout(() => {
+    equal(1, 1)
+    equalAsString(1, "1")
+    cb(~planned=3, ())
+  }, 100)
+})
+
+testAsync("Async with planned and fails", cb => {
+  let _ = setTimeout(() => {
+    equal(1, 2)
+    equalAsString(1, "1")
+    cb(~planned=2, ())
+  }, 100)
+})

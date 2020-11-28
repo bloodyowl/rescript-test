@@ -133,6 +133,7 @@ let testAsync = (name, ~timeout=5_000, func) => {
     let index = testCounter.contents
     queue := queue.contents->Promise.flatThen(() => {
         let failedAtStart = failCounter.contents
+        let passedAtStart = passCounter.contents
         Promise.make((resolve, _reject) => {
           testText(name, index)
           try {
@@ -142,7 +143,18 @@ let testAsync = (name, ~timeout=5_000, func) => {
               Console.log(`  ${failText}${formatMessage(message)}`)
               resolve()
             }, timeout)
-            func(() => {
+            func((~planned=?, ()) => {
+              switch planned {
+              | Some(planned) =>
+                assertion(
+                  ~message="Correct assertion count",
+                  ~operator="planned",
+                  (a, b) => a == b,
+                  planned,
+                  passCounter.contents + failCounter.contents - (passedAtStart + failedAtStart),
+                )
+              | None => ()
+              }
               clearTimeout(timeoutId)
               resolve()
               if failCounter.contents > failedAtStart {
@@ -164,7 +176,7 @@ let testAsync = (name, ~timeout=5_000, func) => {
 let testAsyncWith = (~setup, ~teardown=?, name, ~timeout=?, func) => {
   testAsync(name, ~timeout?, callback => {
     let value = setup()
-    func(value, () => {
+    func(value, (~planned=?, ()) => {
       try {
         switch teardown {
         | Some(teardown) => teardown(value)
@@ -175,7 +187,7 @@ let testAsyncWith = (~setup, ~teardown=?, name, ~timeout=?, func) => {
         Console.error(exn)
         exit(1)
       }
-      callback()
+      callback(~planned?, ())
     })
   })
 }

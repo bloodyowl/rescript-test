@@ -7,7 +7,7 @@ let throws: (~message: string=?, ~test: exn => bool=?, unit => unit) => unit
 
 let http: (({..}, {..}) => unit) => unit
 
-let testAsync: (string, ~timeout: int=?, (unit => unit) => unit) => unit
+let testAsync: (string, ~timeout: int=?, ((~planned: int=?, unit) => unit) => unit) => unit
 
 let test: (string, unit => unit) => unit
 
@@ -16,7 +16,7 @@ let testAsyncWith: (
   ~teardown: 'a => unit=?,
   string,
   ~timeout: int=?,
-  ('a, unit => unit) => unit,
+  ('a, (~planned: int=?, unit) => unit) => unit,
 ) => unit
 
 let testWith: (~setup: unit => 'a, ~teardown: 'a => unit=?, string, 'a => unit) => unit
