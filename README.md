@@ -230,3 +230,12 @@ testAsync("Mock HTTP requests", callback => {
   })
 })
 ```
+
+### Async assertion count plan
+
+```rescript
+testAsync("My test", (cb) => (
+  // your tests
+  cb(~planned=2, ())
+))
+```
