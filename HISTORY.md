@@ -1,3 +1,9 @@
+## 0.6.0
+
+Features:
+
+- Add support for env file (682e57c)
+
 ## 0.5.1
 
 Features:
