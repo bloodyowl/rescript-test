@@ -15,7 +15,7 @@
   "bs-dependencies": ["rescript-js"],
   "bs-dev-dependencies": ["rescript-request", "rescript-future"],
   "package-specs": {
-    "module": "commonjs",
+    "module": "es6",
     "in-source": true
   },
   "suffix": ".bs.js",
