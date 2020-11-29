@@ -1,5 +1,6 @@
-#!/usr/bin/env -S node -r esm
+#!/usr/bin/env node
 "use strict";
+require = require("esm")(module);
 
 let path = require("path");
 let express = require("express");
