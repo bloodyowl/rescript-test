@@ -1,3 +1,9 @@
+## 0.6.2
+
+Fixes:
+
+- Fix bin (a57c02f)
+
 ## 0.6.1
 
 Features:
