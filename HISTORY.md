@@ -1,3 +1,9 @@
+## 0.6.3
+
+Fixes:
+
+- Alternative way to load ESM (32c2aa6)
+
 ## 0.6.2
 
 Fixes:
