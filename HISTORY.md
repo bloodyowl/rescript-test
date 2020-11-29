@@ -1,3 +1,9 @@
+## 0.6.1
+
+Features:
+
+- Support ES modules (76fe430)
+
 ## 0.6.0
 
 Features:
