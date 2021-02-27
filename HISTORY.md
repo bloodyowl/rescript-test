@@ -1,3 +1,9 @@
+## 0.6.4
+
+Changes:
+
+- Update rescript-js (cc15d28)
+
 ## 0.6.3
 
 Fixes:
