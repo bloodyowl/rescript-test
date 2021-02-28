@@ -776,10 +776,10 @@ rescript-future@^1.0.4:
   resolved "https://registry.yarnpkg.com/rescript-future/-/rescript-future-1.0.4.tgz#8d80d4e5da3cca31887f361a277b816fbcc5ca1f"
   integrity sha512-1p9ieIdSKP4lktDf1H6Un54SXIuIxVRP7YPbueAi2rO8Jcb3NSmxADiJi+6fvfojGHKznmCm3DlCso+w/zO0YQ==
 
-rescript-js@^0.4.1:
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/rescript-js/-/rescript-js-0.4.1.tgz#d79c4f030a7b63fc38f226a3c18056c6b67d8db0"
-  integrity sha512-neyA69cBDcU8c6mneQqIanJkXejQczJ3sUIYLz4gDNrVK5B8KKoiYjPSrSBX42zwzjiEcyLJzFehCbv40E6ccQ==
+rescript-js@^0.4.2:
+  version "0.4.2"
+  resolved "https://registry.yarnpkg.com/rescript-js/-/rescript-js-0.4.2.tgz#ced0669cdd9345b4d8401ef5ee8e627da5e967d5"
+  integrity sha512-jwR3QcfhXkAdtzjUJ9GC9YS7QiuPqe71cZWKnpYj3j/SRpDsUEBy0cHkEPZncrk8ykKpsKS3oYJRkop2OsJmAw==
 
 rescript-request@^1.0.2:
   version "1.0.2"
