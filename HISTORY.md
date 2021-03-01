@@ -1,3 +1,9 @@
+## 0.7.0
+
+Changes:
+
+- Update rescript-js (7a98399)
+
 ## 0.6.5
 
 Changes:
