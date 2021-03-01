@@ -131,7 +131,7 @@ let testAsync = (name, ~timeout=5_000, func) => {
   } else {
     incr(testCounter)
     let index = testCounter.contents
-    queue := queue.contents->Promise.flatThen(() => {
+    queue := queue.contents->Promise.then(() => {
         let failedAtStart = failCounter.contents
         let passedAtStart = passCounter.contents
         Promise.make((resolve, _reject) => {
@@ -141,7 +141,7 @@ let testAsync = (name, ~timeout=5_000, func) => {
               let message = Some(`Timed out after ${timeout->Int.toString}ms`)
               incr(testTimeoutCounter)
               Console.log(`  ${failText}${formatMessage(message)}`)
-              resolve()
+              resolve(. ()->ignore)
             }, timeout)
             func((~planned=?, ()) => {
               switch planned {
@@ -156,7 +156,7 @@ let testAsync = (name, ~timeout=5_000, func) => {
               | None => ()
               }
               clearTimeout(timeoutId)
-              resolve()
+              resolve(. ()->ignore)
               if failCounter.contents > failedAtStart {
                 incr(testFailedCounter)
               } else {
@@ -198,7 +198,7 @@ let test = (name, func) => {
   } else {
     incr(testCounter)
     let index = testCounter.contents
-    queue := queue.contents->Promise.flatThen(() => {
+    queue := queue.contents->Promise.then(() => {
         let failedAtStart = failCounter.contents
 
         Promise.make((resolve, _reject) => {
@@ -215,7 +215,7 @@ let test = (name, func) => {
           } else {
             incr(testPassedCounter)
           }
-          resolve()
+          resolve(. ()->ignore)
         })
       })
   }

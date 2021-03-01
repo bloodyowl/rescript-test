@@ -2,6 +2,11 @@
 # yarn lockfile v1
 
 
+"@ryyppy/rescript-promise@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@ryyppy/rescript-promise/-/rescript-promise-2.0.0.tgz#e0f31e8d5d85a822485113d34d3e5ee77c7e8523"
+  integrity sha512-Nyej9ESV32rG+fxDlK+BtmSiN4mAQ6vCYxYNuU7LqGXKUmr9XiiEbLYEtQXKg3KDpMfKZTwbyjyj2LOiCHrAmQ==
+
 abab@^2.0.3:
   version "2.0.5"
   resolved "https://registry.yarnpkg.com/abab/-/abab-2.0.5.tgz#c0b678fb32d60fc1219c784d6a826fe385aeb79a"
@@ -776,10 +781,12 @@ rescript-future@^1.0.4:
   resolved "https://registry.yarnpkg.com/rescript-future/-/rescript-future-1.0.4.tgz#8d80d4e5da3cca31887f361a277b816fbcc5ca1f"
   integrity sha512-1p9ieIdSKP4lktDf1H6Un54SXIuIxVRP7YPbueAi2rO8Jcb3NSmxADiJi+6fvfojGHKznmCm3DlCso+w/zO0YQ==
 
-rescript-js@^0.4.2:
-  version "0.4.2"
-  resolved "https://registry.yarnpkg.com/rescript-js/-/rescript-js-0.4.2.tgz#ced0669cdd9345b4d8401ef5ee8e627da5e967d5"
-  integrity sha512-jwR3QcfhXkAdtzjUJ9GC9YS7QiuPqe71cZWKnpYj3j/SRpDsUEBy0cHkEPZncrk8ykKpsKS3oYJRkop2OsJmAw==
+rescript-js@^0.5.0:
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/rescript-js/-/rescript-js-0.5.0.tgz#1ab3228f6f5e1210b40e801c435cad39c9811825"
+  integrity sha512-s759e/IHuAfAb3PKt8Bh9+K6lDeIujVTR2Yq8STIQPCWXbc1B79i88X7RAWixKvLHuilSziykaxBGUKMCcRUHA==
+  dependencies:
+    "@ryyppy/rescript-promise" "^2.0.0"
 
 rescript-request@^1.0.2:
   version "1.0.2"

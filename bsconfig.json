@@ -12,7 +12,7 @@
       "type": "dev"
     }
   ],
-  "bs-dependencies": ["rescript-js"],
+  "bs-dependencies": ["@ryyppy/rescript-promise", "rescript-js"],
   "bs-dev-dependencies": ["rescript-request", "rescript-future"],
   "package-specs": {
     "module": "es6",
