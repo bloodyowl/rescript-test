@@ -19,14 +19,11 @@
   "license": "MIT",
   "devDependencies": {
     "bs-platform": "^8.3.2",
-    "rescript-request": "^1.0.2"
+    "rescript-request": "^1.0.2",
+    "rescript-js": "^0.5.0"
   },
   "dependencies": {
-    "cors": "^2.8.5",
     "esm": "^3.2.25",
-    "express": "^4.17.1",
-    "get-port": "^5.1.1",
-    "jsdom": "^16.4.0",
-    "rescript-js": "^0.5.0"
+    "jsdom": "^16.4.0"
   }
 }

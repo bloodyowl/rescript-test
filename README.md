@@ -201,36 +201,6 @@ testWithReact("Can render", container => {
 })
 ```
 
-### Mocking HTTP
-
-In DOM mode (with the `--with-dom` option), you can simulate a server using the `http` helper.
-
-You can pass a handler function that takes a `req` and a `res` (they are typed as `{..}` for convenience). The actual server is an express instance. If you want to customize it further, it is exposed as `globalThis.server`.
-
-You can create a global handler or rewrite it for each specific test.
-
-**Important note**: HTTP mocking only applies when running the tests in a node environment using the `retest` CLI.
-
-```rescript
-testAsync("Mock HTTP requests", callback => {
-  http((req, res) => {
-    switch req["url"] {
-    | "http://localhost/foo" => res["status"](200)["end"]("Hello!")
-    | "http://localhost/bar" => res["status"](200)["end"]("World!")
-    | _ => res["status"](404)["end"]("")
-    }
-  })
-  Future.all2((
-    Request.make(~url="http://localhost/foo", ~responseType=Text, ()),
-    Request.make(~url="http://localhost/bar", ~responseType=Text, ()),
-  ))->Future.get(((a, b)) => {
-    resultEqual(a, Ok({response: Some("Hello!"), status: 200, ok: true}))
-    resultEqual(b, Ok({response: Some("World!"), status: 200, ok: true}))
-    callback()
-  })
-})
-```
-
 ### Async assertion count plan
 
 ```rescript

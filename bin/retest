@@ -3,9 +3,6 @@
 require = require("esm")(module);
 
 let path = require("path");
-let express = require("express");
-let cors = require("cors");
-let getPort = require("get-port");
 let fs = require("fs");
 let args = process.argv.slice(2);
 let { JSDOM, ResourceLoader } = require("jsdom");
@@ -16,23 +13,7 @@ let options = {
 
 async function start() {
   if (args.includes(options["--with-dom"])) {
-    let port = await getPort();
-    globalThis.retestHttp = (req, res) =>
-      res.status(404).end("ReScript Test HTTP isn't configured");
-    globalThis.server = express();
-    globalThis.server.disable("x-powered-by");
-    globalThis.server.use(cors());
-    globalThis.server.use((req, res) => {
-      globalThis.retestHttp(req, res);
-    });
-    globalThis.server.listen(port);
-    var jsdom = new JSDOM("<!DOCTYPE html>", {
-      resources: new ResourceLoader({
-        proxy: `http://localhost:${port}`,
-        strictSSL: false,
-        userAgent: "ReScriptTest",
-      }),
-    });
+    var jsdom = new JSDOM("<!DOCTYPE html>");
     Object.defineProperties(
       globalThis,
       Object.fromEntries(
