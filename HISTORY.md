@@ -1,3 +1,10 @@
+## 1.0.0
+
+Changes:
+
+- **Breaking**: Removed HTTP mocking, this doesn't play well with React testing as `act` needs to sync with actions, prefer to pass a mock over props (26c9d20)
+- Removed dependencies (26c9d20)
+
 ## 0.7.0
 
 Changes:
