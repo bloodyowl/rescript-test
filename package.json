@@ -2,13 +2,14 @@
   "name": "rescript-test",
   "version": "1.0.0",
   "bin": {
-    "retest": "bin/retest"
+    "retest": "node bin/retest.mjs"
   },
+  "type": "module",
   "scripts": {
     "clean": "bsb -clean-world",
     "build": "bsb -make-world",
     "watch": "bsb -make-world -w",
-    "test": "bin/retest --with-dom test/*.bs.js"
+    "test": "node bin/retest.mjs --es6 --with-dom test/*.mjs"
   },
   "keywords": [
     "BuckleScript",
@@ -18,12 +19,11 @@
   "author": "bloodyowl <bloodyowl@icloud.com>",
   "license": "MIT",
   "devDependencies": {
-    "bs-platform": "^8.3.2",
+    "bs-platform": "^9.0.1",
     "rescript-js": "^0.5.0",
     "rescript-request": "^1.0.2"
   },
   "dependencies": {
-    "esm": "^3.2.25",
     "jsdom": "^16.4.0"
   }
 }

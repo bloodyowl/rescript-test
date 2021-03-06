@@ -1,5 +1,5 @@
-@bs.val external exit: int => unit = "process.exit"
-@bs.val external process: Js.Undefined.t<{..}> = "process"
+@val external exit: int => unit = "process.exit"
+@val external process: Js.Undefined.t<{..}> = "process"
 
 let exit = code => {
   if Js.typeof(process) != "undefined" {
@@ -87,7 +87,7 @@ let throws = (~message=?, ~test: option<exn => bool>=?, func: unit => unit) => {
   } catch {
   | exn =>
     switch test {
-    | Some(test) when test(exn) == false =>
+    | Some(test) if test(exn) == false =>
       incr(failCounter)
       Js.Console.log(`  ${failText}${formatMessage(message)}`)
     | _ =>
@@ -227,10 +227,13 @@ let testWith = (~setup, ~teardown=?, name, func) => {
 
 @send external finally: (Js.Promise.t<'a>, unit => unit) => Js.Promise.t<'a> = "finally"
 
-Js.Global.setTimeout(() => {
+let autoBoot = ref(true)
+
+let runTests = () => {
   running := true
 
-  queue := queue.contents->finally(() => {
+  queue :=
+    queue.contents->finally(() => {
       Js.Console.log(``)
       Js.Console.log(
         grey(`# Ran ${testCounter.contents->Belt.Int.toString} tests (${total()} assertions)`),
@@ -239,9 +242,9 @@ Js.Global.setTimeout(() => {
       Js.Console.log(
         grey(
           `# ${(testFailedCounter.contents + testTimeoutCounter.contents)
-            ->Belt.Int.toString} failed${testTimeoutCounter.contents > 0
-            ? ` (${testTimeoutCounter.contents->Belt.Int.toString} timed out)`
-            : ``}`,
+              ->Belt.Int.toString} failed${testTimeoutCounter.contents > 0
+              ? ` (${testTimeoutCounter.contents->Belt.Int.toString} timed out)`
+              : ``}`,
         ),
       )
 
@@ -251,4 +254,10 @@ Js.Global.setTimeout(() => {
         exit(0)
       }
     })
+}
+
+let _ = Js.Global.setTimeout(() => {
+  if autoBoot.contents {
+    runTests()
+  }
 }, 0)

@@ -26,3 +26,5 @@ lib/bs
 .bsb.lock
 /node_modules/
 *.bs.js
+src/**/*.mjs
+test/**/*.mjs

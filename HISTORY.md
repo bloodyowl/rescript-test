@@ -1,3 +1,9 @@
+## 2.0.0
+
+Changes:
+
+- **Breaking**: removed ESM to use Node's module system
+
 ## 1.0.0
 
 Changes:

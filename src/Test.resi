@@ -18,3 +18,7 @@ let testAsyncWith: (
 ) => unit
 
 let testWith: (~setup: unit => 'a, ~teardown: 'a => unit=?, string, 'a => unit) => unit
+
+let autoBoot: ref<bool>
+
+let runTests: unit => unit

@@ -37,9 +37,9 @@ test("DeepEquals", () => {
   userEqual(a, b)
 })
 
-testAsync("Async", cb => {
-  let _ = setTimeout(() => {
-    pass()
-    cb()
-  }, 100)
-})
+// testAsync("Async", cb => {
+//   let _ = setTimeout(() => {
+//     pass()
+//     cb()
+//   }, 100)
+// })
