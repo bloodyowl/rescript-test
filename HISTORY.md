@@ -2,7 +2,7 @@
 
 Changes:
 
-- **Breaking**: removed ESM to use Node's module system
+- **Breaking**: removed ESM to use Node's module system (c39fa38)
 
 ## 1.0.0
 
