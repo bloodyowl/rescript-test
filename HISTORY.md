@@ -1,3 +1,9 @@
+## 2.0.2
+
+Fixes:
+
+- Fixed CLI (7da3f98)
+
 ## 2.0.1
 
 Fixes:
