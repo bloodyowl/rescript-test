@@ -1,3 +1,9 @@
+## 2.0.1
+
+Fixes:
+
+- Fixed CLI (2225fc5)
+
 ## 2.0.0
 
 Changes:
