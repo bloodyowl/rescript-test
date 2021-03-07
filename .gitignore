@@ -27,4 +27,5 @@ lib/bs
 /node_modules/
 *.bs.js
 src/**/*.mjs
+!src/cli.mjs
 test/**/*.mjs

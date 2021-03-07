@@ -2,14 +2,14 @@
   "name": "rescript-test",
   "version": "2.0.0",
   "bin": {
-    "retest": "node bin/retest.mjs"
+    "retest": "bin/retest"
   },
   "type": "module",
   "scripts": {
     "clean": "bsb -clean-world",
     "build": "bsb -make-world",
     "watch": "bsb -make-world -w",
-    "test": "node bin/retest.mjs --es6 --with-dom test/*.mjs"
+    "test": "bin/retest --with-dom test/*.mjs"
   },
   "keywords": [
     "BuckleScript",
