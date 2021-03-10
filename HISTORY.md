@@ -1,3 +1,9 @@
+## 2.0.4
+
+Features:
+
+- Handle custom BS suffixes (dd16c8a)
+
 ## 2.0.3
 
 Fixes:
