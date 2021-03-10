@@ -24,6 +24,7 @@
     "rescript-request": "^1.0.2"
   },
   "dependencies": {
-    "jsdom": "^16.4.0"
+    "jsdom": "^16.4.0",
+    "rescript-future": "^1.1.0"
   }
 }
