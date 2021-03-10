@@ -1,3 +1,9 @@
+## 2.0.5
+
+Features:
+
+- Fix JSDOM version (a74941b)
+
 ## 2.0.4
 
 Features:
