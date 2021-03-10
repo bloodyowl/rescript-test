@@ -3,8 +3,18 @@
 import path from "path";
 import fs from "fs";
 import { JSDOM } from "jsdom";
-import { autoBoot, runTests } from "../src/Test.mjs";
 import { pathToFileURL } from "url";
+
+let suffix = ".js";
+
+if (fs.existsSync(path.join(process.cwd(), "bsconfig.json"))) {
+  let bsconfig = JSON.parse(
+    fs.readFileSync(path.join(process.cwd(), "bsconfig.json"), "utf8")
+  );
+  suffix = bsconfig.suffix || ".js";
+}
+
+let { autoBoot, runTests } = await import(`../src/Test${suffix}`);
 
 let args = process.argv.slice(2);
 

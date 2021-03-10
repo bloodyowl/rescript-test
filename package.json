@@ -4,7 +4,9 @@
   "bin": {
     "retest": "bin/retest.mjs"
   },
-  "type": "module",
+  "engines": {
+    "node": ">14.0.0"
+  },
   "scripts": {
     "clean": "bsb -clean-world",
     "build": "bsb -make-world",
