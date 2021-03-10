@@ -37,7 +37,9 @@ let failCounter = ref(0)
 
 let total = () => (passCounter.contents + failCounter.contents)->Js.Int.toString
 
-let queue = ref(Js.Promise.resolve())
+let (queue, runTests) = Deferred.make()
+
+let queue = ref(queue)
 
 let formatMessage = message =>
   switch message {
@@ -122,17 +124,18 @@ let testAsync = (name, ~timeout=5_000, func) => {
   } else {
     incr(testCounter)
     let index = testCounter.contents
-    queue := queue.contents->Js.Promise.then_(() => {
+    queue :=
+      queue.contents->Future.flatMap(() => {
         let failedAtStart = failCounter.contents
         let passedAtStart = passCounter.contents
-        Js.Promise.make((~resolve, ~reject as _) => {
+        Future.makePure(resolve => {
           testText(name, index)
           try {
             let timeoutId = Js.Global.setTimeout(() => {
               let message = Some(`Timed out after ${timeout->Js.Int.toString}ms`)
               incr(testTimeoutCounter)
               Js.Console.log(`  ${failText}${formatMessage(message)}`)
-              resolve(. ()->ignore)
+              resolve()
             }, timeout)
             func((~planned=?, ()) => {
               switch planned {
@@ -147,7 +150,7 @@ let testAsync = (name, ~timeout=5_000, func) => {
               | None => ()
               }
               Js.Global.clearTimeout(timeoutId)
-              resolve(. ()->ignore)
+              resolve()
               if failCounter.contents > failedAtStart {
                 incr(testFailedCounter)
               } else {
@@ -160,7 +163,7 @@ let testAsync = (name, ~timeout=5_000, func) => {
             exit(1)
           }
         })
-      }, _)
+      })
   }
 }
 
@@ -191,10 +194,11 @@ let test = (name, func) => {
   } else {
     incr(testCounter)
     let index = testCounter.contents
-    queue := queue.contents->Js.Promise.then_(() => {
+    queue :=
+      queue.contents->Future.flatMap(() => {
         let failedAtStart = failCounter.contents
 
-        Js.Promise.make((~resolve, ~reject as _) => {
+        Future.makePure(resolve => {
           testText(name, index)
           try {
             func()
@@ -208,9 +212,9 @@ let test = (name, func) => {
           } else {
             incr(testPassedCounter)
           }
-          resolve(. ()->ignore)
+          resolve()
         })
-      }, _)
+      })
   }
 }
 
@@ -225,35 +229,32 @@ let testWith = (~setup, ~teardown=?, name, func) => {
   })
 }
 
-@send external finally: (Js.Promise.t<'a>, unit => unit) => Js.Promise.t<'a> = "finally"
-
 let autoBoot = ref(true)
 
 let runTests = () => {
   running := true
 
-  queue :=
-    queue.contents->finally(() => {
-      Js.Console.log(``)
-      Js.Console.log(
-        grey(`# Ran ${testCounter.contents->Belt.Int.toString} tests (${total()} assertions)`),
-      )
-      Js.Console.log(grey(`# ${testPassedCounter.contents->Belt.Int.toString} passed`))
-      Js.Console.log(
-        grey(
-          `# ${(testFailedCounter.contents + testTimeoutCounter.contents)
-              ->Belt.Int.toString} failed${testTimeoutCounter.contents > 0
-              ? ` (${testTimeoutCounter.contents->Belt.Int.toString} timed out)`
-              : ``}`,
-        ),
-      )
+  queue.contents->Future.get(() => {
+    Js.Console.log(``)
+    Js.Console.log(
+      grey(`# Ran ${testCounter.contents->Belt.Int.toString} tests (${total()} assertions)`),
+    )
+    Js.Console.log(grey(`# ${testPassedCounter.contents->Belt.Int.toString} passed`))
+    Js.Console.log(
+      grey(
+        `# ${(testFailedCounter.contents + testTimeoutCounter.contents)
+            ->Belt.Int.toString} failed${testTimeoutCounter.contents > 0
+            ? ` (${testTimeoutCounter.contents->Belt.Int.toString} timed out)`
+            : ``}`,
+      ),
+    )
 
-      if testFailedCounter.contents + testTimeoutCounter.contents > 0 {
-        exit(1)
-      } else {
-        exit(0)
-      }
-    })
+    if testFailedCounter.contents + testTimeoutCounter.contents > 0 {
+      exit(1)
+    } else {
+      exit(0)
+    }
+  })
 }
 
 let _ = Js.Global.setTimeout(() => {
