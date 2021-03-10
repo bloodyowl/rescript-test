@@ -37,7 +37,7 @@ let failCounter = ref(0)
 
 let total = () => (passCounter.contents + failCounter.contents)->Js.Int.toString
 
-let (queue, runTests) = Deferred.make()
+let (queue, startRunningTests) = Deferred.make()
 
 let queue = ref(queue)
 
@@ -89,7 +89,7 @@ let throws = (~message=?, ~test: option<exn => bool>=?, func: unit => unit) => {
   } catch {
   | exn =>
     switch test {
-    | Some(test) if test(exn) == false =>
+    | Some(test) when test(exn) == false =>
       incr(failCounter)
       Js.Console.log(`  ${failText}${formatMessage(message)}`)
     | _ =>
@@ -255,6 +255,8 @@ let runTests = () => {
       exit(0)
     }
   })
+
+  startRunningTests()
 }
 
 let _ = Js.Global.setTimeout(() => {
