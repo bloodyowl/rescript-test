@@ -1,3 +1,9 @@
+## 2.0.3
+
+Fixes:
+
+- Fixed a bug in total count (a5cf6b2, c2df817)
+
 ## 2.0.2
 
 Fixes:
