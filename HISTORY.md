@@ -1,3 +1,9 @@
+## 2.0.6
+
+Changes:
+
+- Infer suffix from passed files (037c2cb)
+
 ## 2.0.5
 
 Features:
