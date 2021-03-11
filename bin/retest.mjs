@@ -5,24 +5,20 @@ import fs from "fs";
 import { JSDOM } from "jsdom";
 import { pathToFileURL } from "url";
 
-let suffix = ".js";
-
-if (fs.existsSync(path.join(process.cwd(), "bsconfig.json"))) {
-  let bsconfig = JSON.parse(
-    fs.readFileSync(path.join(process.cwd(), "bsconfig.json"), "utf8")
-  );
-  suffix = bsconfig.suffix || ".js";
-}
-
-let { autoBoot, runTests } = await import(`../src/Test${suffix}`);
-
 let args = process.argv.slice(2);
-
-autoBoot.contents = false;
-
 let options = {
   "--with-dom": "--with-dom",
 };
+
+let allowedSuffixes = [".bs.js", ".js", ".mjs", ".cjs"];
+
+let firstFile = args.filter((item) => !options[item])[0];
+
+let suffix = allowedSuffixes.find((suffix) => firstFile.endsWith(suffix));
+
+let { autoBoot, runTests } = await import(`../src/Test${suffix}`);
+
+autoBoot.contents = false;
 
 if (args.includes(options["--with-dom"])) {
   var jsdom = new JSDOM("<!DOCTYPE html>");
