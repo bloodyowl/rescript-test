@@ -2,6 +2,9 @@
 
 > A lightweight test framework for ReScript
 
+<img width="682" alt="Screen Shot 2021-04-04 at 19 58 39" src="https://user-images.githubusercontent.com/1688645/113517422-28ee7200-9580-11eb-9e84-4f9de3c75069.png">
+
+
 ## Installation
 
 Run the following in your console:
