@@ -89,7 +89,7 @@ let throws = (~message=?, ~test: option<exn => bool>=?, func: unit => unit) => {
   } catch {
   | exn =>
     switch test {
-    | Some(test) when test(exn) == false =>
+    | Some(test) if test(exn) == false =>
       incr(failCounter)
       Js.Console.log(`  ${failText}${formatMessage(message)}`)
     | _ =>
@@ -150,12 +150,12 @@ let testAsync = (name, ~timeout=5_000, func) => {
               | None => ()
               }
               Js.Global.clearTimeout(timeoutId)
-              resolve()
               if failCounter.contents > failedAtStart {
                 incr(testFailedCounter)
               } else {
                 incr(testPassedCounter)
               }
+              resolve()
             })
           } catch {
           | exn =>
