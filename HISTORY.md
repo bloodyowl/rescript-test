@@ -1,3 +1,9 @@
+## 2.0.7
+
+Fixes:
+
+- Fix incorrect reporting count (3b7facc)
+
 ## 2.0.6
 
 Changes:
