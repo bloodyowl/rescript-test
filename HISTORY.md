@@ -1,3 +1,10 @@
+## 3.0.0
+
+Changes:
+
+- Update to ReScript (9f94604)
+- Remove dependency on Future (9f94604)
+
 ## 2.0.7
 
 Fixes:
