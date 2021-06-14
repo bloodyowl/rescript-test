@@ -16,6 +16,11 @@ let firstFile = args.filter((item) => !options[item])[0];
 
 let suffix = allowedSuffixes.find((suffix) => firstFile.endsWith(suffix));
 
+if (suffix == null) {
+  console.error("Unsupported file extension");
+  process.exit(1);
+}
+
 let { autoBoot, runTests } = await import(`../src/Test${suffix}`);
 
 autoBoot.contents = false;
