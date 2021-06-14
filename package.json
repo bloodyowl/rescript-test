@@ -1,6 +1,6 @@
 {
   "name": "rescript-test",
-  "version": "2.0.7",
+  "version": "3.0.0",
   "bin": {
     "retest": "bin/retest.mjs"
   },
