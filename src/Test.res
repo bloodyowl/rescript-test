@@ -37,9 +37,22 @@ let failCounter = ref(0)
 
 let total = () => (passCounter.contents + failCounter.contents)->Js.Int.toString
 
-let (queue, startRunningTests) = Deferred.make()
+let queue = ref(list{})
 
-let queue = ref(queue)
+let startRunningTests = onEnd => {
+  let tests = queue.contents->Belt.List.reverse
+  let rec runNextTest = tests => {
+    switch tests {
+    | list{test, ...rest} => test(() => runNextTest(rest))
+    | list{} => onEnd()->ignore
+    }
+  }
+  runNextTest(tests)
+}
+
+let registerTest = test => {
+  queue.contents = list{test, ...queue.contents}
+}
 
 let formatMessage = message =>
   switch message {
@@ -124,46 +137,43 @@ let testAsync = (name, ~timeout=5_000, func) => {
   } else {
     incr(testCounter)
     let index = testCounter.contents
-    queue :=
-      queue.contents->Future.flatMap(() => {
-        let failedAtStart = failCounter.contents
-        let passedAtStart = passCounter.contents
-        Future.makePure(resolve => {
-          testText(name, index)
-          try {
-            let timeoutId = Js.Global.setTimeout(() => {
-              let message = Some(`Timed out after ${timeout->Js.Int.toString}ms`)
-              incr(testTimeoutCounter)
-              Js.Console.log(`  ${failText}${formatMessage(message)}`)
-              resolve()
-            }, timeout)
-            func((~planned=?, ()) => {
-              switch planned {
-              | Some(planned) =>
-                assertion(
-                  ~message="Correct assertion count",
-                  ~operator="planned",
-                  (a, b) => a == b,
-                  planned,
-                  passCounter.contents + failCounter.contents - (passedAtStart + failedAtStart),
-                )
-              | None => ()
-              }
-              Js.Global.clearTimeout(timeoutId)
-              if failCounter.contents > failedAtStart {
-                incr(testFailedCounter)
-              } else {
-                incr(testPassedCounter)
-              }
-              resolve()
-            })
-          } catch {
-          | exn =>
-            Js.Console.error(exn)
-            exit(1)
+    registerTest(resolve => {
+      let failedAtStart = failCounter.contents
+      let passedAtStart = passCounter.contents
+      testText(name, index)
+      try {
+        let timeoutId = Js.Global.setTimeout(() => {
+          let message = Some(`Timed out after ${timeout->Js.Int.toString}ms`)
+          incr(testTimeoutCounter)
+          Js.Console.log(`  ${failText}${formatMessage(message)}`)
+          resolve()
+        }, timeout)
+        func((~planned=?, ()) => {
+          switch planned {
+          | Some(planned) =>
+            assertion(
+              ~message="Correct assertion count",
+              ~operator="planned",
+              (a, b) => a == b,
+              planned,
+              passCounter.contents + failCounter.contents - (passedAtStart + failedAtStart),
+            )
+          | None => ()
           }
+          Js.Global.clearTimeout(timeoutId)
+          if failCounter.contents > failedAtStart {
+            incr(testFailedCounter)
+          } else {
+            incr(testPassedCounter)
+          }
+          resolve()
         })
-      })
+      } catch {
+      | exn =>
+        Js.Console.error(exn)
+        exit(1)
+      }
+    })
   }
 }
 
@@ -194,27 +204,24 @@ let test = (name, func) => {
   } else {
     incr(testCounter)
     let index = testCounter.contents
-    queue :=
-      queue.contents->Future.flatMap(() => {
-        let failedAtStart = failCounter.contents
+    registerTest(resolve => {
+      let failedAtStart = failCounter.contents
 
-        Future.makePure(resolve => {
-          testText(name, index)
-          try {
-            func()
-          } catch {
-          | exn =>
-            Js.Console.error(exn)
-            exit(1)
-          }
-          if failCounter.contents > failedAtStart {
-            incr(testFailedCounter)
-          } else {
-            incr(testPassedCounter)
-          }
-          resolve()
-        })
-      })
+      testText(name, index)
+      try {
+        func()
+      } catch {
+      | exn =>
+        Js.Console.error(exn)
+        exit(1)
+      }
+      if failCounter.contents > failedAtStart {
+        incr(testFailedCounter)
+      } else {
+        incr(testPassedCounter)
+      }
+      resolve()
+    })
   }
 }
 
@@ -234,7 +241,7 @@ let autoBoot = ref(true)
 let runTests = () => {
   running := true
 
-  queue.contents->Future.get(() => {
+  startRunningTests(() => {
     Js.Console.log(``)
     Js.Console.log(
       grey(`# Ran ${testCounter.contents->Belt.Int.toString} tests (${total()} assertions)`),
@@ -255,8 +262,6 @@ let runTests = () => {
       exit(0)
     }
   })
-
-  startRunningTests()
 }
 
 let _ = Js.Global.setTimeout(() => {

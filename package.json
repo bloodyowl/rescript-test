@@ -8,9 +8,9 @@
     "node": ">14.0.0"
   },
   "scripts": {
-    "clean": "bsb -clean-world",
-    "build": "bsb -make-world",
-    "watch": "bsb -make-world -w",
+    "clean": "rescript clean",
+    "build": "rescript build -with-deps",
+    "watch": "rescript build -with-deps -w",
     "test": "bin/retest.mjs --with-dom test/*.mjs"
   },
   "keywords": [
@@ -21,15 +21,13 @@
   "author": "bloodyowl <bloodyowl@icloud.com>",
   "license": "MIT",
   "devDependencies": {
-    "bs-platform": "^9.0.1",
-    "rescript-js": "^0.5.0",
-    "rescript-request": "^1.0.2"
+    "rescript": "^9.1.4",
+    "rescript-js": "^0.5.15"
   },
   "peerDependencies": {
-    "bs-platform": ">8.4.0"
+    "rescript": "^9.0.0"
   },
   "dependencies": {
-    "jsdom": "16.4.0",
-    "rescript-future": "^1.1.0"
+    "jsdom": "16.4.0"
   }
 }

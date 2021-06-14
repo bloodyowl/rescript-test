@@ -12,8 +12,7 @@
       "type": "dev"
     }
   ],
-  "bs-dependencies": ["rescript-future"],
-  "bs-dev-dependencies": ["rescript-js", "rescript-request"],
+  "bs-dev-dependencies": ["rescript-js"],
   "package-specs": {
     "module": "es6",
     "in-source": true
