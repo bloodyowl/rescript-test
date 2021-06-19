@@ -35,7 +35,7 @@ module.exports = {
     },
     footer: {
       style: "dark",
-      copyright: `Copyright © ${new Date().getFullYear()} bloodyowl.`,
+      copyright: `Copyright © ${new Date().getFullYear()} bloodyowl`,
     },
     prism: {
       theme: darkCodeTheme,
