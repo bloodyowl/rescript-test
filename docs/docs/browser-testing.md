@@ -16,4 +16,4 @@ Import the compiled file in an HTML page and you'll see your test output in the 
 
 If you want to see for yourself, check out your console! 😀
 
-import "../../test/TestAllPass.mjs"
+import "./Browser.mjs"
