@@ -9,14 +9,14 @@ module.exports = {
   baseUrl: "/rescript-test/",
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
-  favicon: "img/favicon.ico",
+  favicon: "img/favicon.png",
   organizationName: "bloodyowl", // Usually your GitHub org/user name.
   projectName: "rescript-test", // Usually your repo name.
   themeConfig: {
     navbar: {
       title: "ReScript Test",
       logo: {
-        alt: "My Site Logo",
+        alt: "ReScript Test",
         src: "img/logo.svg",
       },
       items: [
@@ -51,13 +51,7 @@ module.exports = {
           sidebarPath: require.resolve("./sidebars.js"),
           // Please change this to your repo.
           editUrl:
-            "https://github.com/facebook/docusaurus/edit/master/website/",
-        },
-        blog: {
-          showReadingTime: true,
-          // Please change this to your repo.
-          editUrl:
-            "https://github.com/facebook/docusaurus/edit/master/website/blog/",
+            "https://github.com/bloodyowl/rescript-test/edit/master/website/",
         },
         theme: {
           customCss: require.resolve("./src/css/custom.css"),
