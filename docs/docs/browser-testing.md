@@ -13,3 +13,7 @@ include MyOtherComponent__Test
 ```
 
 Import the compiled file in an HTML page and you'll see your test output in the console!
+
+If you want to see for yourself, check out your console! 😀
+
+import "../../test/TestAllPass.mjs"
