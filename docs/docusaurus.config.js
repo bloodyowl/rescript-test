@@ -21,12 +21,6 @@ module.exports = {
       },
       items: [
         {
-          to: "/",
-          activeBasePath: "docs",
-          label: "Docs",
-          position: "left",
-        },
-        {
           href: "https://github.com/bloodyowl/rescript-test",
           label: "GitHub",
           position: "right",
