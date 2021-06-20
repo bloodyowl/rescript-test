@@ -79,6 +79,10 @@ test("Test with a function that's supposed to throw", () => {
 })
 ```
 
+:::note
+Any exception thrown outside of a `throws` call will result in the runner exiting with code 1
+:::
+
 ## doesNotThrow
 
 ```js title="TestForException_test.res"
