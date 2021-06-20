@@ -56,7 +56,7 @@ If you want to make sure that your assertion count is right, you can pass the ex
 ```js title="AsyncWorkflow_test.res"
 testAsync("Async workflow", ~timeout=10, (done) => {
   // Your async assertions
-  done(~planned=3)
+  done(~planned=3, ())
 })
 ```
 
