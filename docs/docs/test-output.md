@@ -5,7 +5,7 @@ sidebar_label: Test output
 
 # Test output
 
-<img width="682" alt="Screen Shot 2021-04-04 at 19 58 39" src="https://user-images.githubusercontent.com/1688645/113517422-28ee7200-9580-11eb-9e84-4f9de3c75069.png" />
+<img width="1166" height="744" alt="Test output screenshot" src="https://user-images.githubusercontent.com/1688645/113517422-28ee7200-9580-11eb-9e84-4f9de3c75069.png" />
 
 Tests output look like the following (it looks nicer with colors ✨):
 
