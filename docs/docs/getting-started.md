@@ -14,7 +14,7 @@ ReScript Test is a lightweight test framework with:
 - **Speed**: we don't embed anything fancy, it just makes your tests run fast
 - **A clear output**: your test results are easy to read
 
-<img width="1166" height="744" alt="Test output screenshot" src="https://user-images.githubusercontent.com/1688645/113517422-28ee7200-9580-11eb-9e84-4f9de3c75069.png" />
+<img width="1166" height="744" style={{maxWidth: "100%", height: "auto"}} alt="Test output screenshot" src="https://user-images.githubusercontent.com/1688645/113517422-28ee7200-9580-11eb-9e84-4f9de3c75069.png" />
 
 ```js title="AsyncData_test.res"
 test("AsyncData getExn", () => {
