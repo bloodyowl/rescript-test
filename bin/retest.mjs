@@ -14,14 +14,32 @@ let allowedSuffixes = [".bs.js", ".js", ".mjs", ".cjs"];
 
 let firstFile = args.filter((item) => !options[item])[0];
 
+let buildsOutOfSource =
+  firstFile.startsWith("lib/") || firstFile.startsWith("./lib/");
+let outputDirectoryRegExp = /^(\.\/)?lib\/(\w+?)\//;
+
 let suffix = allowedSuffixes.find((suffix) => firstFile.endsWith(suffix));
+
+let outputDirectoryPrefix;
+if (buildsOutOfSource) {
+  let match = firstFile.match(outputDirectoryRegExp);
+  if (match) {
+    outputDirectoryPrefix = "/lib/" + match[2];
+  } else {
+    outputDirectoryPrefix = "";
+  }
+} else {
+  outputDirectoryPrefix = "";
+}
 
 if (suffix == null) {
   console.error("Unsupported file extension");
   process.exit(1);
 }
 
-let { autoBoot, runTests } = await import(`../src/Test${suffix}`);
+let { autoBoot, runTests } = await import(
+  `..${outputDirectoryPrefix}/src/Test${suffix}`
+);
 
 autoBoot.contents = false;
 
