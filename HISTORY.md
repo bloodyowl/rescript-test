@@ -1,3 +1,9 @@
+## 3.1.0
+
+Features:
+
+- Support out-of-source compilation (fa3ea5e)
+
 ## 3.0.0
 
 Changes:
