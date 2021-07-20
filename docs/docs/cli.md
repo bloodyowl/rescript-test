@@ -41,7 +41,7 @@ This one's on Node 🤷‍♂️.
 If your files are stored in deeper directories, specify the depth that way:
 
 ```console title="Console"
-$ retest tests/*.mjs test/**/*.mjs
+$ retest tests/*.mjs tests/**/*.mjs
 ```
 
 ### Enable DOM testing in the CLI
