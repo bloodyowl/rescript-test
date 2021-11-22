@@ -1,3 +1,9 @@
+## 3.2.0
+
+Features:
+
+- Allow glob if OS doesn't support it (9653865)
+
 ## 3.1.0
 
 Features:
