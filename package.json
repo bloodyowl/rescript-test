@@ -11,7 +11,7 @@
     "clean": "rescript clean",
     "build": "rescript build -with-deps",
     "watch": "rescript build -with-deps -w",
-    "test": "bin/retest.mjs --with-dom test/*.mjs"
+    "test": "bin/retest.mjs --with-dom 'test/*.mjs'"
   },
   "keywords": [
     "BuckleScript",
@@ -28,6 +28,7 @@
     "rescript": "^9.0.0"
   },
   "dependencies": {
+    "glob": "^7.2.0",
     "jsdom": "16.4.0"
   }
 }

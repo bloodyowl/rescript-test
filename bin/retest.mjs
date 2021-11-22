@@ -4,6 +4,7 @@ import path from "path";
 import fs from "fs";
 import { JSDOM } from "jsdom";
 import { pathToFileURL } from "url";
+import glob from "glob";
 
 let args = process.argv.slice(2);
 let options = {
@@ -60,9 +61,28 @@ if (fs.existsSync(path.join(process.cwd(), "retest.env.js"))) {
   await import(pathToFileURL(path.join(process.cwd(), "retest.env.js")).href);
 }
 
-let modules = args
-  .filter((item) => !options[item])
-  .map((file) => pathToFileURL(path.resolve(process.cwd(), file)).href);
+let globsOrNames = args.filter((item) => !options[item]);
+
+if (globsOrNames.some((item) => item.includes("*"))) {
+  globsOrNames = await Promise.all(
+    globsOrNames.map(
+      (globOrName) =>
+        new Promise((resolve, reject) => {
+          glob(globOrName, (err, files) => {
+            if (err) {
+              reject(err);
+            } else {
+              resolve(files);
+            }
+          });
+        })
+    )
+  ).then((arrays) => [...new Set([].concat(...arrays))]);
+}
+
+let modules = globsOrNames.map(
+  (file) => pathToFileURL(path.resolve(process.cwd(), file)).href
+);
 
 await Promise.all(modules.map((item) => import(item)));
 

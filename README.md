@@ -28,9 +28,9 @@ Then add `rescript-test` to your `bsconfig.json`'s `bs-dev-dependencies`:
 
 ```console
 $ # All tests
-$ retest test/**/*.bs.js
+$ retest 'test/**/*.bs.js'
 $ # Single file
-$ retest test/MyTest.bs.js
+$ retest 'test/MyTest.bs.js'
 ```
 
 ## Testing with DOM
@@ -39,9 +39,9 @@ The test framework can simulate a browser using [JSDOM](https://github.com/jsdom
 
 ```console
 $ # All tests
-$ retest --with-dom test/**/*.bs.js
+$ retest --with-dom 'test/**/*.bs.js'
 $ # Single file
-$ retest --with-dom test/MyTest.bs.js
+$ retest --with-dom 'test/MyTest.bs.js'
 ```
 
 ## Basics

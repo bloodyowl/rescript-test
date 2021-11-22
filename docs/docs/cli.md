@@ -8,7 +8,7 @@ sidebar_label: CLI
 ReScript Test comes with a little `retest` CLI to help your run your tests.
 
 ```console title="Console"
-$ retest tests/*.mjs
+$ retest 'tests/*.mjs'
 ```
 
 Note here that we're using the `mjs` extension. This gives the runner infer the information about which extension you've specified in your compiler. It can be either of the following:
@@ -28,10 +28,10 @@ $ retest tests/MyFile_test.mjs
 
 ## ES6 modules
 
-ReScript Test works out of the box with either ES6 modules (starting with **Node 14**, unfortunately) or CommonJS. 
+ReScript Test works out of the box with either ES6 modules (starting with **Node 14**, unfortunately) or CommonJS.
 
 :::warning
-You'll need to use the `.mjs` extension when using ES6 modules. 
+You'll need to use the `.mjs` extension when using ES6 modules.
 
 This one's on Node 🤷‍♂️.
 :::
@@ -41,7 +41,7 @@ This one's on Node 🤷‍♂️.
 If your files are stored in deeper directories, specify the depth that way:
 
 ```console title="Console"
-$ retest tests/*.mjs tests/**/*.mjs
+$ retest 'tests/*.mjs' 'test/**/*.mjs'
 ```
 
 ### Enable DOM testing in the CLI
