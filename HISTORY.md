@@ -1,3 +1,9 @@
+## 3.3.0
+
+Changes:
+
+- Update JSDom (thanks [@remitbri](https://github.com/remitbri)) (c3341c7)
+
 ## 3.2.0
 
 Features:
