@@ -1,3 +1,9 @@
+## 3.4.0
+
+Changes:
+
+- Bump jsdom to 20.0.0 (d487eb7)
+
 ## 3.3.0
 
 Changes:
