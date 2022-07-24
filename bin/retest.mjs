@@ -45,7 +45,9 @@ let { autoBoot, runTests } = await import(
 autoBoot.contents = false;
 
 if (args.includes(options["--with-dom"])) {
-  var jsdom = new JSDOM("<!DOCTYPE html>");
+  var jsdom = new JSDOM("<!DOCTYPE html>", {
+    url: "about://blank",
+  });
   Object.defineProperties(
     globalThis,
     Object.fromEntries(
