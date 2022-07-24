@@ -1,3 +1,9 @@
+## 3.4.1
+
+Fixes:
+
+- Fix default URL (693ad27)
+
 ## 3.4.0
 
 Changes:
