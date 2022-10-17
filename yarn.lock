@@ -2,7 +2,7 @@
 # yarn lockfile v1
 
 
-"@ryyppy/rescript-promise@^2.0.0":
+"@ryyppy/rescript-promise@^2.1.0":
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/@ryyppy/rescript-promise/-/rescript-promise-2.1.0.tgz#a33861274c41360cfbe872cf489f3dcb8dd526e6"
   integrity sha512-+dW6msBrj2Lr2hbEMX+HoWCvN89qVjl94RwbYWJgHQuj8jm/izdPC0YzxgpGoEFdeAEW2sOozoLcYHxT6o5WXQ==
@@ -365,17 +365,17 @@ punycode@^2.1.1:
   resolved "https://registry.yarnpkg.com/punycode/-/punycode-2.1.1.tgz#b58b010ac40c22c5657616c8d2c2c02c7bf479ec"
   integrity sha512-XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A==
 
-rescript-js@^0.5.15:
-  version "0.5.15"
-  resolved "https://registry.yarnpkg.com/rescript-js/-/rescript-js-0.5.15.tgz#0f539453fed483e6268710bd0000c895fbc7ad3f"
-  integrity sha512-T5eNm74C16xTQasyfNMGXv4HLBPWvBsN5NKyNJL/2IuboQbmukOzmPiRJ/g2/HbQ1Al7ZPVX9w8vOysMx2HbRQ==
+rescript-js@1.0.0-beta.2:
+  version "1.0.0-beta.2"
+  resolved "https://registry.yarnpkg.com/rescript-js/-/rescript-js-1.0.0-beta.2.tgz#f04a259396dde22178b43cebd1b3dbd3a4f94a60"
+  integrity sha512-eWq9ga4tnzXpED1IkDtmmkMBoUN2Vy4FPeZ9ge5ur0vHSolf7QhpnpGoPY0hkTXfwXQuFlPw5g2g5nWCEmIkVQ==
   dependencies:
-    "@ryyppy/rescript-promise" "^2.0.0"
+    "@ryyppy/rescript-promise" "^2.1.0"
 
-rescript@^9.1.4:
-  version "9.1.4"
-  resolved "https://registry.yarnpkg.com/rescript/-/rescript-9.1.4.tgz#1eb126f98d6c16942c0bf0df67c050198e580515"
-  integrity sha512-aXANK4IqecJzdnDpJUsU6pxMViCR5ogAxzuqS0mOr8TloMnzAjJFu63fjD6LCkWrKAhlMkFFzQvVQYaAaVkFXw==
+rescript@^10.0.0:
+  version "10.0.1"
+  resolved "https://registry.yarnpkg.com/rescript/-/rescript-10.0.1.tgz#5b2da8a8bcfb994bed1eb24820bf10cfb9d8c440"
+  integrity sha512-XwO1GPDtoEU4H03xQE5bp0/qtSVR6YLaJRPxWKrfFgKc+LI36ODOCie7o9UJfgzQdoMYkkZyiTGZ4N9OQEaiUw==
 
 "safer-buffer@>= 2.1.2 < 3.0.0":
   version "2.1.2"
