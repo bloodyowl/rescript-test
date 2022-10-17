@@ -1,3 +1,9 @@
+## 4.0.0
+
+Changes:
+
+- ReScript 10 compat (breaking) (7692ef8)
+
 ## 3.4.1
 
 Fixes:
