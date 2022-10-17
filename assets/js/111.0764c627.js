@@ -12,7 +12,7 @@ __webpack_require__.r(__webpack_exports__);
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
   "deepEqual": () => (/* binding */ deepEqual),
-  "equal": () => (/* binding */ equal),
+  "equal": () => (/* binding */ TestAllPass_equal),
   "isCharCode": () => (/* binding */ isCharCode),
   "stringMapEqual": () => (/* binding */ stringMapEqual),
   "testAsyncWithSetupAndTeardown": () => (/* binding */ testAsyncWithSetupAndTeardown),
@@ -87,7 +87,6 @@ function set(xs, index, newval) {
         };
   }
   xs[index] = newval;
-  
 }
 
 function get(xs, index) {
@@ -127,7 +126,6 @@ function blit(a1, i1, a2, i2, len) {
   for(var j$1 = len - 1 | 0; j$1 >= 0; --j$1){
     a2[j$1 + i2 | 0] = a1[j$1 + i1 | 0];
   }
-  
 }
 
 function dup(prim) {
@@ -1424,7 +1422,7 @@ function forEachU(_xs, f) {
 }
 
 function forEach(xs, f) {
-  return forEachU(xs, Curry.__1(f));
+  forEachU(xs, Curry.__1(f));
 }
 
 function forEachWithIndexU(l, f) {
@@ -1444,7 +1442,7 @@ function forEachWithIndexU(l, f) {
 }
 
 function forEachWithIndex(l, f) {
-  return forEachWithIndexU(l, Curry.__2(f));
+  forEachWithIndexU(l, Curry.__2(f));
 }
 
 function reduceU(_l, _accu, f) {
@@ -1553,7 +1551,7 @@ function forEach2U(_l1, _l2, f) {
 }
 
 function forEach2(l1, l2, f) {
-  return forEach2U(l1, l2, Curry.__2(f));
+  forEach2U(l1, l2, Curry.__2(f));
 }
 
 function reduce2U(_l1, _l2, _accu, f) {
@@ -2085,7 +2083,7 @@ function create(str) {
   return str + ("/" + id.contents);
 }
 
-function caml_is_extension(e) {
+function is_extension(e) {
   if (e == null) {
     return false;
   } else {
@@ -2093,7 +2091,7 @@ function caml_is_extension(e) {
   }
 }
 
-function caml_exn_slot_name(x) {
+function exn_slot_name(x) {
   return x.RE_EXN_ID;
 }
 
@@ -2106,20 +2104,20 @@ function caml_exn_slot_name(x) {
 
 
 
-var $$Error = /* @__PURE__ */create("Caml_js_exceptions.Error");
+var $$Error = "JsError";
 
 function internalToOCamlException(e) {
-  if (caml_is_extension(e)) {
+  if (is_extension(e)) {
     return e;
   } else {
     return {
-            RE_EXN_ID: $$Error,
+            RE_EXN_ID: "JsError",
             _1: e
           };
   }
 }
 
-function caml_as_js_exn(exn) {
+function as_js_exn(exn) {
   if (exn.RE_EXN_ID === $$Error) {
     return Caml_option.some(exn._1);
   }
@@ -2140,9 +2138,8 @@ function exit(code) {
   if (typeof process !== "undefined") {
     process.exit(code);
   } else {
-    console.log("# Exit code: " + code.toString());
+    console.log("# Exit code: " + code.toString() + "");
   }
-  
 }
 
 function red(text) {
@@ -2214,8 +2211,7 @@ var testTimeoutCounter = {
 function testText(name, index) {
   var index$1 = index.toString();
   var total = testCounter.contents.toString();
-  console.log(index$1 + "/" + total + ": " + name);
-  
+  console.log("" + index$1 + "/" + total + ": " + name + "");
 }
 
 var passCounter = {
@@ -2239,12 +2235,11 @@ function registerTest(test) {
     hd: test,
     tl: queue.contents
   };
-  
 }
 
 function formatMessage(message) {
   if (message !== undefined) {
-    return " - " + message;
+    return " - " + message + "";
   } else {
     return grey(" - No message");
   }
@@ -2253,32 +2248,31 @@ function formatMessage(message) {
 function assertion(message, operator, compare, a, b) {
   if (_2(compare, a, b)) {
     passCounter.contents = passCounter.contents + 1 | 0;
-    console.log("  " + passText + formatMessage(message));
+    console.log("  " + passText + "" + formatMessage(message) + "");
   } else {
     failCounter.contents = failCounter.contents + 1 | 0;
-    console.log("  " + failText + formatMessage(message));
+    console.log("  " + failText + "" + formatMessage(message) + "");
     console.log("    ---");
     if (operator !== undefined) {
-      console.log("    " + pink("operator") + ": " + operator);
+      console.log("    " + pink("operator") + ": " + operator + "");
     }
     console.log("    " + pink("left") + ": ", a);
     console.log("    " + pink("right") + ":", b);
     console.log("    ...");
   }
-  
 }
 
 function doesNotThrow(message, func) {
   try {
     Curry._1(func, undefined);
     passCounter.contents = passCounter.contents + 1 | 0;
-    console.log("  " + passText + formatMessage(message));
+    console.log("  " + passText + "" + formatMessage(message) + "");
     return ;
   }
   catch (raw_exn){
     var exn = Caml_js_exceptions.internalToOCamlException(raw_exn);
     failCounter.contents = failCounter.contents + 1 | 0;
-    console.log("  " + failText + formatMessage(message));
+    console.log("  " + failText + "" + formatMessage(message) + "");
     console.log("    ---");
     console.log("    " + pink("operator") + ": doesNotThrow");
     console.log("    " + pink("error") + ":", exn);
@@ -2291,40 +2285,37 @@ function Test_throws(message, test, func) {
   try {
     Curry._1(func, undefined);
     failCounter.contents = failCounter.contents + 1 | 0;
-    console.log("  " + failText + formatMessage(message));
+    console.log("  " + failText + "" + formatMessage(message) + "");
     return ;
   }
   catch (raw_exn){
     var exn = Caml_js_exceptions.internalToOCamlException(raw_exn);
     if (test !== undefined && Curry._1(test, exn) === false) {
       failCounter.contents = failCounter.contents + 1 | 0;
-      console.log("  " + failText + formatMessage(message));
+      console.log("  " + failText + "" + formatMessage(message) + "");
       return ;
     }
     passCounter.contents = passCounter.contents + 1 | 0;
-    console.log("  " + passText + formatMessage(message));
+    console.log("  " + passText + "" + formatMessage(message) + "");
     return ;
   }
 }
 
 function todo(message) {
-  console.log("  " + todoText + formatMessage(message));
-  
+  console.log("  " + todoText + "" + formatMessage(message) + "");
 }
 
 function pass(message, param) {
   passCounter.contents = passCounter.contents + 1 | 0;
-  console.log("  " + passText + formatMessage(message));
-  
+  console.log("  " + passText + "" + formatMessage(message) + "");
 }
 
 function fail(message, param) {
   failCounter.contents = failCounter.contents + 1 | 0;
-  console.log("  " + failText + formatMessage(message));
+  console.log("  " + failText + "" + formatMessage(message) + "");
   console.log("    ---");
   console.log("    " + pink("operator") + ": fail");
   console.log("    ...");
-  
 }
 
 function testAsync(name, timeoutOpt, func) {
@@ -2335,58 +2326,58 @@ function testAsync(name, timeoutOpt, func) {
   }
   testCounter.contents = testCounter.contents + 1 | 0;
   var index = testCounter.contents;
-  return registerTest(function (resolve) {
-              var failedAtStart = failCounter.contents;
-              var passedAtStart = passCounter.contents;
-              testText(name, index);
-              try {
-                var timeoutId = setTimeout((function (param) {
-                        var message = "Timed out after " + timeout.toString() + "ms";
-                        testTimeoutCounter.contents = testTimeoutCounter.contents + 1 | 0;
-                        console.log("  " + failText + formatMessage(message));
-                        return _1(resolve, undefined);
-                      }), timeout);
-                return _1(func, (function (planned, param) {
-                              if (planned !== undefined) {
-                                assertion("Correct assertion count", "planned", (function (a, b) {
-                                        return a === b;
-                                      }), planned, (passCounter.contents + failCounter.contents | 0) - (passedAtStart + failedAtStart | 0) | 0);
-                              }
-                              clearTimeout(timeoutId);
-                              if (failCounter.contents > failedAtStart) {
-                                testFailedCounter.contents = testFailedCounter.contents + 1 | 0;
-                              } else {
-                                testPassedCounter.contents = testPassedCounter.contents + 1 | 0;
-                              }
-                              return _1(resolve, undefined);
-                            }));
-              }
-              catch (raw_exn){
-                var exn = internalToOCamlException(raw_exn);
-                console.error(exn);
-                return exit(1);
-              }
-            });
+  registerTest(function (resolve) {
+        var failedAtStart = failCounter.contents;
+        var passedAtStart = passCounter.contents;
+        testText(name, index);
+        try {
+          var timeoutId = setTimeout((function (param) {
+                  var message = "Timed out after " + timeout.toString() + "ms";
+                  testTimeoutCounter.contents = testTimeoutCounter.contents + 1 | 0;
+                  console.log("  " + failText + "" + formatMessage(message) + "");
+                  _1(resolve, undefined);
+                }), timeout);
+          return _1(func, (function (planned, param) {
+                        if (planned !== undefined) {
+                          assertion("Correct assertion count", "planned", (function (a, b) {
+                                  return a === b;
+                                }), planned, (passCounter.contents + failCounter.contents | 0) - (passedAtStart + failedAtStart | 0) | 0);
+                        }
+                        clearTimeout(timeoutId);
+                        if (failCounter.contents > failedAtStart) {
+                          testFailedCounter.contents = testFailedCounter.contents + 1 | 0;
+                        } else {
+                          testPassedCounter.contents = testPassedCounter.contents + 1 | 0;
+                        }
+                        _1(resolve, undefined);
+                      }));
+        }
+        catch (raw_exn){
+          var exn = internalToOCamlException(raw_exn);
+          console.error(exn);
+          return exit(1);
+        }
+      });
 }
 
 function testAsyncWith(setup, teardown, name, timeout, func) {
-  return testAsync(name, timeout, (function (callback) {
-                var value = _1(setup, undefined);
-                return _2(func, value, (function (planned, param) {
-                              try {
-                                if (teardown !== undefined) {
-                                  _1(teardown, value);
-                                }
-                                
-                              }
-                              catch (raw_exn){
-                                var exn = internalToOCamlException(raw_exn);
-                                console.error(exn);
-                                exit(1);
-                              }
-                              return _2(callback, planned, undefined);
-                            }));
-              }));
+  testAsync(name, timeout, (function (callback) {
+          var value = _1(setup, undefined);
+          _2(func, value, (function (planned, param) {
+                  try {
+                    if (teardown !== undefined) {
+                      _1(teardown, value);
+                    }
+                    
+                  }
+                  catch (raw_exn){
+                    var exn = internalToOCamlException(raw_exn);
+                    console.error(exn);
+                    exit(1);
+                  }
+                  _2(callback, planned, undefined);
+                }));
+        }));
 }
 
 function test(name, func) {
@@ -2396,35 +2387,35 @@ function test(name, func) {
   }
   testCounter.contents = testCounter.contents + 1 | 0;
   var index = testCounter.contents;
-  return registerTest(function (resolve) {
-              var failedAtStart = failCounter.contents;
-              testText(name, index);
-              try {
-                _1(func, undefined);
-              }
-              catch (raw_exn){
-                var exn = internalToOCamlException(raw_exn);
-                console.error(exn);
-                exit(1);
-              }
-              if (failCounter.contents > failedAtStart) {
-                testFailedCounter.contents = testFailedCounter.contents + 1 | 0;
-              } else {
-                testPassedCounter.contents = testPassedCounter.contents + 1 | 0;
-              }
-              return _1(resolve, undefined);
-            });
+  registerTest(function (resolve) {
+        var failedAtStart = failCounter.contents;
+        testText(name, index);
+        try {
+          _1(func, undefined);
+        }
+        catch (raw_exn){
+          var exn = internalToOCamlException(raw_exn);
+          console.error(exn);
+          exit(1);
+        }
+        if (failCounter.contents > failedAtStart) {
+          testFailedCounter.contents = testFailedCounter.contents + 1 | 0;
+        } else {
+          testPassedCounter.contents = testPassedCounter.contents + 1 | 0;
+        }
+        _1(resolve, undefined);
+      });
 }
 
 function testWith(setup, teardown, name, func) {
-  return test(name, (function (param) {
-                var value = _1(setup, undefined);
-                _1(func, value);
-                if (teardown !== undefined) {
-                  return _1(teardown, value);
-                }
-                
-              }));
+  test(name, (function (param) {
+          var value = _1(setup, undefined);
+          _1(func, value);
+          if (teardown !== undefined) {
+            return _1(teardown, value);
+          }
+          
+        }));
 }
 
 var autoBoot = {
@@ -2439,7 +2430,7 @@ function runTests(param) {
     console.log(grey("# " + String(testPassedCounter.contents) + " passed"));
     console.log(grey("# " + String(testFailedCounter.contents + testTimeoutCounter.contents | 0) + " failed" + (
               testTimeoutCounter.contents > 0 ? " (" + String(testTimeoutCounter.contents) + " timed out)" : ""
-            )));
+            ) + ""));
     if ((testFailedCounter.contents + testTimeoutCounter.contents | 0) > 0) {
       return exit(1);
     } else {
@@ -2451,13 +2442,12 @@ function runTests(param) {
     if (tests) {
       var rest = tests.tl;
       return _1(tests.hd, (function (param) {
-                    return runNextTest(rest);
+                    runNextTest(rest);
                   }));
     }
     _1(onEnd, undefined);
-    
   };
-  return runNextTest(tests);
+  runNextTest(tests);
 }
 
 setTimeout((function (param) {
@@ -2478,7 +2468,7 @@ setTimeout((function (param) {
 var for_in = (function(o,foo){
         for (var x in o) { foo(x) }});
 
-var caml_obj_dup = (function(x){
+var obj_dup = (function(x){
   if(Array.isArray(x)){
     var len = x.length  
     var v = new Array(len)
@@ -2509,7 +2499,7 @@ var update_dummy = (function(x,y){
   }
 });
 
-function caml_compare(a, b) {
+function compare(a, b) {
   if (a === b) {
     return 0;
   }
@@ -2518,7 +2508,7 @@ function caml_compare(a, b) {
   switch (a_type) {
     case "boolean" :
         if (b_type === "boolean") {
-          return Caml.caml_bool_compare(a, b);
+          return Caml.bool_compare(a, b);
         }
         break;
     case "function" :
@@ -2532,12 +2522,12 @@ function caml_compare(a, b) {
         break;
     case "number" :
         if (b_type === "number") {
-          return Caml.caml_int_compare(a, b);
+          return Caml.int_compare(a, b);
         }
         break;
     case "string" :
         if (b_type === "string") {
-          return Caml.caml_string_compare(a, b);
+          return Caml.string_compare(a, b);
         } else {
           return 1;
         }
@@ -2602,7 +2592,7 @@ function caml_compare(a, b) {
       var tag_a = a.TAG | 0;
       var tag_b = b.TAG | 0;
       if (tag_a === 248) {
-        return Caml.caml_int_compare(a[1], b[1]);
+        return Caml.int_compare(a[1], b[1]);
       }
       if (tag_a === 251) {
         throw {
@@ -2628,7 +2618,7 @@ function caml_compare(a, b) {
             if (i === len_a) {
               return 0;
             }
-            var res = caml_compare(a[i], b[i]);
+            var res = compare(a[i], b[i]);
             if (res !== 0) {
               return res;
             }
@@ -2647,7 +2637,7 @@ function caml_compare(a, b) {
           if (i$1 === len_a) {
             return -1;
           }
-          var res$1 = caml_compare(a[i$1], b[i$1]);
+          var res$1 = compare(a[i$1], b[i$1]);
           if (res$1 !== 0) {
             return res$1;
           }
@@ -2661,7 +2651,7 @@ function caml_compare(a, b) {
           if (i$2 === len_b) {
             return 1;
           }
-          var res$2 = caml_compare(a[i$2], b[i$2]);
+          var res$2 = compare(a[i$2], b[i$2]);
           if (res$2 !== 0) {
             return res$2;
           }
@@ -2682,7 +2672,7 @@ function aux_obj_compare(a, b) {
   var do_key = function (param, key) {
     var min_key = param[2];
     var b = param[1];
-    if (!(!b.hasOwnProperty(key) || caml_compare(param[0][key], b[key]) > 0)) {
+    if (!(!Object.prototype.hasOwnProperty.call(b, key) || compare(param[0][key], b[key]) > 0)) {
       return ;
     }
     var mk = min_key.contents;
@@ -2715,7 +2705,7 @@ function aux_obj_compare(a, b) {
   var match$1 = min_key_rhs.contents;
   if (match !== undefined) {
     if (match$1 !== undefined) {
-      return Caml.caml_string_compare(match, match$1);
+      return Caml.string_compare(match, match$1);
     } else {
       return -1;
     }
@@ -2726,7 +2716,7 @@ function aux_obj_compare(a, b) {
   }
 }
 
-function caml_equal(a, b) {
+function equal(a, b) {
   if (a === b) {
     return true;
   }
@@ -2770,7 +2760,7 @@ function caml_equal(a, b) {
         if (i === len_a) {
           return true;
         }
-        if (!caml_equal(a[i], b[i])) {
+        if (!equal(a[i], b[i])) {
           return false;
         }
         _i = i + 1 | 0;
@@ -2783,14 +2773,14 @@ function caml_equal(a, b) {
         contents: true
       };
       var do_key_a = function (key) {
-        if (!b.hasOwnProperty(key)) {
+        if (!Object.prototype.hasOwnProperty.call(b, key)) {
           result.contents = false;
           return ;
         }
         
       };
       var do_key_b = function (key) {
-        if (!a.hasOwnProperty(key) || !caml_equal(b[key], a[key])) {
+        if (!Object.prototype.hasOwnProperty.call(a, key) || !equal(b[key], a[key])) {
           result.contents = false;
           return ;
         }
@@ -2807,60 +2797,60 @@ function caml_equal(a, b) {
   }
 }
 
-function caml_equal_null(x, y) {
+function equal_null(x, y) {
   if (y !== null) {
-    return caml_equal(x, y);
+    return equal(x, y);
   } else {
     return x === y;
   }
 }
 
-function caml_equal_undefined(x, y) {
+function equal_undefined(x, y) {
   if (y !== undefined) {
-    return caml_equal(x, y);
+    return equal(x, y);
   } else {
     return x === y;
   }
 }
 
-function caml_equal_nullable(x, y) {
+function equal_nullable(x, y) {
   if (y == null) {
     return x === y;
   } else {
-    return caml_equal(x, y);
+    return equal(x, y);
   }
 }
 
-function caml_notequal(a, b) {
-  return !caml_equal(a, b);
+function notequal(a, b) {
+  return !equal(a, b);
 }
 
-function caml_greaterequal(a, b) {
-  return caml_compare(a, b) >= 0;
+function greaterequal(a, b) {
+  return compare(a, b) >= 0;
 }
 
-function caml_greaterthan(a, b) {
-  return caml_compare(a, b) > 0;
+function greaterthan(a, b) {
+  return compare(a, b) > 0;
 }
 
-function caml_lessequal(a, b) {
-  return caml_compare(a, b) <= 0;
+function lessequal(a, b) {
+  return compare(a, b) <= 0;
 }
 
-function caml_lessthan(a, b) {
-  return caml_compare(a, b) < 0;
+function lessthan(a, b) {
+  return compare(a, b) < 0;
 }
 
-function caml_min(x, y) {
-  if (caml_compare(x, y) <= 0) {
+function min(x, y) {
+  if (compare(x, y) <= 0) {
     return x;
   } else {
     return y;
   }
 }
 
-function caml_max(x, y) {
-  if (caml_compare(x, y) >= 0) {
+function max(x, y) {
+  if (compare(x, y) >= 0) {
     return x;
   } else {
     return y;
@@ -3239,7 +3229,7 @@ function belt_internalAVLtree_forEachU(_n, f) {
 }
 
 function belt_internalAVLtree_forEach(n, f) {
-  return belt_internalAVLtree_forEachU(n, __2(f));
+  belt_internalAVLtree_forEachU(n, __2(f));
 }
 
 function belt_internalAVLtree_mapU(n, f) {
@@ -4037,7 +4027,7 @@ function removeMinAuxWithRootMutate(nt, n) {
 
 
 
-function caml_int_compare(x, y) {
+function int_compare(x, y) {
   if (x < y) {
     return -1;
   } else if (x === y) {
@@ -4047,7 +4037,7 @@ function caml_int_compare(x, y) {
   }
 }
 
-function caml_bool_compare(x, y) {
+function bool_compare(x, y) {
   if (x) {
     if (y) {
       return 0;
@@ -4061,7 +4051,7 @@ function caml_bool_compare(x, y) {
   }
 }
 
-function caml_float_compare(x, y) {
+function float_compare(x, y) {
   if (x === y) {
     return 0;
   } else if (x < y) {
@@ -4075,7 +4065,7 @@ function caml_float_compare(x, y) {
   }
 }
 
-function caml_string_compare(s1, s2) {
+function string_compare(s1, s2) {
   if (s1 === s2) {
     return 0;
   } else if (s1 < s2) {
@@ -4085,7 +4075,7 @@ function caml_string_compare(s1, s2) {
   }
 }
 
-function caml_bool_min(x, y) {
+function bool_min(x, y) {
   if (x) {
     return y;
   } else {
@@ -4093,7 +4083,7 @@ function caml_bool_min(x, y) {
   }
 }
 
-function caml_int_min(x, y) {
+function int_min(x, y) {
   if (x < y) {
     return x;
   } else {
@@ -4101,7 +4091,7 @@ function caml_int_min(x, y) {
   }
 }
 
-function caml_float_min(x, y) {
+function float_min(x, y) {
   if (x < y) {
     return x;
   } else {
@@ -4109,7 +4099,7 @@ function caml_float_min(x, y) {
   }
 }
 
-function caml_string_min(x, y) {
+function string_min(x, y) {
   if (x < y) {
     return x;
   } else {
@@ -4117,15 +4107,7 @@ function caml_string_min(x, y) {
   }
 }
 
-function caml_int32_min(x, y) {
-  if (x < y) {
-    return x;
-  } else {
-    return y;
-  }
-}
-
-function caml_bool_max(x, y) {
+function bool_max(x, y) {
   if (x) {
     return x;
   } else {
@@ -4133,7 +4115,7 @@ function caml_bool_max(x, y) {
   }
 }
 
-function caml_int_max(x, y) {
+function int_max(x, y) {
   if (x > y) {
     return x;
   } else {
@@ -4141,7 +4123,7 @@ function caml_int_max(x, y) {
   }
 }
 
-function caml_float_max(x, y) {
+function float_max(x, y) {
   if (x > y) {
     return x;
   } else {
@@ -4149,15 +4131,7 @@ function caml_float_max(x, y) {
   }
 }
 
-function caml_string_max(x, y) {
-  if (x > y) {
-    return x;
-  } else {
-    return y;
-  }
-}
-
-function caml_int32_max(x, y) {
+function string_max(x, y) {
   if (x > y) {
     return x;
   } else {
@@ -4535,7 +4509,6 @@ function insertionSort(src, srcofs, dst, dstofs, len, cmp) {
     };
     dst[j + 1 | 0] = e;
   }
-  
 }
 
 function sortTo(src, srcofs, dst, dstofs, len, cmp) {
@@ -4546,7 +4519,7 @@ function sortTo(src, srcofs, dst, dstofs, len, cmp) {
   var l2 = len - l1 | 0;
   sortTo(src, srcofs + l1 | 0, dst, dstofs + l1 | 0, l2, cmp);
   sortTo(src, srcofs, src, srcofs + l2 | 0, l1, cmp);
-  return merge(src, srcofs + l2 | 0, l1, dst, dstofs + l1 | 0, l2, dst, dstofs, cmp);
+  merge(src, srcofs + l2 | 0, l1, dst, dstofs + l1 | 0, l2, dst, dstofs, cmp);
 }
 
 function stableSortInPlaceByU(a, cmp) {
@@ -4559,11 +4532,11 @@ function stableSortInPlaceByU(a, cmp) {
   var t = new Array(l2);
   sortTo(a, l1, t, 0, l2, cmp);
   sortTo(a, 0, a, l2, l1, cmp);
-  return merge(a, l2, l1, t, 0, l2, a, 0, cmp);
+  merge(a, l2, l1, t, 0, l2, a, 0, cmp);
 }
 
 function stableSortInPlaceBy(a, cmp) {
-  return stableSortInPlaceByU(a, Curry.__2(cmp));
+  stableSortInPlaceByU(a, Curry.__2(cmp));
 }
 
 function stableSortByU(a, cmp) {
@@ -4864,7 +4837,7 @@ function compareAux(_e1, _e2, vcmp) {
     }
     var h2 = e2.hd;
     var h1 = e1.hd;
-    var c = caml_string_compare(h1.k, h2.k);
+    var c = string_compare(h1.k, h2.k);
     if (c !== 0) {
       return c;
     }
@@ -5244,26 +5217,25 @@ var belt_MapString_mapWithKey = mapWithKey;
 
 
 
-function equal(message, a, b) {
-  return assertion(message, "equal", (function (a, b) {
-                return a === b;
-              }), a, b);
+function TestAllPass_equal(message, a, b) {
+  assertion(message, "equal", (function (a, b) {
+          return a === b;
+        }), a, b);
 }
 
 function deepEqual(message, a, b) {
-  return assertion(message, "deepEqual", caml_equal, a, b);
+  assertion(message, "deepEqual", equal, a, b);
 }
 
 testAsync("Async", undefined, (function (cb) {
         setTimeout((function (param) {
                 pass(undefined, undefined);
-                return _2(cb, undefined, undefined);
+                _2(cb, undefined, undefined);
               }), 100);
-        
       }));
 
 test("Equals", (function (param) {
-        return equal(undefined, 1, 1);
+        TestAllPass_equal(undefined, 1, 1);
       }));
 
 function isCharCode(a, b) {
@@ -5271,18 +5243,18 @@ function isCharCode(a, b) {
 }
 
 test("Custom comparator", (function (param) {
-        return assertion("Char code should match", "isCharCode", isCharCode, "a", 97.0);
+        assertion("Char code should match", "isCharCode", isCharCode, "a", 97.0);
       }));
 
 test("DeepEquals", (function (param) {
-        equal(undefined, "user", "user");
-        return deepEqual(undefined, {
-                    username: "user",
-                    id: "a"
-                  }, {
-                    username: "user",
-                    id: "a"
-                  });
+        TestAllPass_equal(undefined, "user", "user");
+        deepEqual(undefined, {
+              username: "user",
+              id: "a"
+            }, {
+              username: "user",
+              id: "a"
+            });
       }));
 
 function testWithSetup(param, param$1, param$2) {
@@ -5295,19 +5267,18 @@ function testWithSetup(param, param$1, param$2) {
 
 testWithSetup(undefined, "Setup", (function (someRef) {
         someRef.contents = someRef.contents + 1 | 0;
-        return equal(undefined, someRef.contents, 1);
+        TestAllPass_equal(undefined, someRef.contents, 1);
       }));
 
 testWithSetup(undefined, "Setup", (function (someRef) {
-        equal(undefined, someRef.contents, 0);
+        TestAllPass_equal(undefined, someRef.contents, 0);
         someRef.contents = someRef.contents + 1 | 0;
         someRef.contents = someRef.contents + 1 | 0;
-        return equal(undefined, someRef.contents, 2);
+        TestAllPass_equal(undefined, someRef.contents, 2);
       }));
 
 var partial_arg = (function (someRef) {
     someRef.contents = 0;
-    
   });
 
 function testWithSetupAndTeardown(param, param$1) {
@@ -5320,19 +5291,18 @@ function testWithSetupAndTeardown(param, param$1) {
 
 testWithSetupAndTeardown("Setup & teardown", (function (someRef) {
         someRef.contents = someRef.contents + 1 | 0;
-        return equal(undefined, someRef.contents, 1);
+        TestAllPass_equal(undefined, someRef.contents, 1);
       }));
 
 testWithSetupAndTeardown("Setup & teardown 2", (function (someRef) {
-        equal(undefined, someRef.contents, 0);
+        TestAllPass_equal(undefined, someRef.contents, 0);
         someRef.contents = someRef.contents + 1 | 0;
         someRef.contents = someRef.contents + 1 | 0;
-        return equal(undefined, someRef.contents, 2);
+        TestAllPass_equal(undefined, someRef.contents, 2);
       }));
 
 var partial_arg$1 = (function (someRef) {
     someRef.contents = 0;
-    
   });
 
 function testAsyncWithSetupAndTeardown(param, param$1, param$2) {
@@ -5345,34 +5315,34 @@ function testAsyncWithSetupAndTeardown(param, param$1, param$2) {
 
 testAsyncWithSetupAndTeardown("Async setup & teardown", undefined, (function (someRef, callback) {
         someRef.contents = someRef.contents + 1 | 0;
-        equal(undefined, someRef.contents, 1);
-        return _2(callback, undefined, undefined);
+        TestAllPass_equal(undefined, someRef.contents, 1);
+        _2(callback, undefined, undefined);
       }));
 
 testAsyncWithSetupAndTeardown("Async setup & teardown 2", undefined, (function (someRef, callback) {
-        equal(undefined, someRef.contents, 0);
+        TestAllPass_equal(undefined, someRef.contents, 0);
         someRef.contents = someRef.contents + 1 | 0;
         someRef.contents = someRef.contents + 1 | 0;
-        equal(undefined, someRef.contents, 2);
-        return _2(callback, undefined, undefined);
+        TestAllPass_equal(undefined, someRef.contents, 2);
+        _2(callback, undefined, undefined);
       }));
 
 function stringMapEqual(message, a, b) {
-  return assertion(message, "stringMapEqual", (function (a, b) {
-                return belt_MapString_eq(a, b, (function (a, b) {
-                              return a === b;
-                            }));
-              }), a, b);
+  assertion(message, "stringMapEqual", (function (a, b) {
+          return belt_MapString_eq(a, b, (function (a, b) {
+                        return a === b;
+                      }));
+        }), a, b);
 }
 
 test("Cutom operator Equals", (function (param) {
-        return stringMapEqual(undefined, belt_MapString_fromArray([[
-                          "a",
-                          1
-                        ]]), belt_MapString_fromArray([[
-                          "a",
-                          1
-                        ]]));
+        stringMapEqual(undefined, belt_MapString_fromArray([[
+                    "a",
+                    1
+                  ]]), belt_MapString_fromArray([[
+                    "a",
+                    1
+                  ]]));
       }));
 
 
