@@ -21,14 +21,14 @@
   "author": "bloodyowl <bloodyowl@icloud.com>",
   "license": "MIT",
   "devDependencies": {
-    "rescript": "^10.0.0",
-    "rescript-js": "1.0.0-beta.2"
+    "rescript": "^10.0.0"
   },
   "peerDependencies": {
     "rescript": "^9.0.0 || ^10.0.0"
   },
   "dependencies": {
     "glob": "^7.2.0",
-    "jsdom": "20.0.0"
+    "jsdom": "20.0.0",
+    "rescript-js": "1.0.0-beta.2"
   }
 }
