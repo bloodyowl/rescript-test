@@ -1,3 +1,9 @@
+## 5.0.0
+
+Changes:
+
+- Bump jsdom (d75a31a)
+
 ## 4.0.0
 
 Changes:
