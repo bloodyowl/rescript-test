@@ -4,7 +4,7 @@ import path from "path";
 import fs from "fs";
 import { JSDOM } from "jsdom";
 import { pathToFileURL } from "url";
-import glob from "glob";
+import { glob } from "glob";
 
 let args = process.argv.slice(2);
 let options = {
