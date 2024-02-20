@@ -5,7 +5,7 @@
     "retest": "bin/retest.mjs"
   },
   "engines": {
-    "node": ">16.0.0"
+    "node": ">20.0.0"
   },
   "scripts": {
     "clean": "rescript clean",
@@ -28,7 +28,7 @@
     "rescript": "^9.0.0 || ^10.0.0"
   },
   "dependencies": {
-    "glob": "^7.2.0",
-    "jsdom": "22.1.0"
+    "glob": "^10.3.0",
+    "jsdom": "^23.1.0"
   }
 }
