@@ -1,3 +1,9 @@
+## 6.0.0
+
+Changes:
+
+- Bump jsdom & min node version (584037f) (thanks @remitbri)
+
 ## 5.0.0
 
 Changes:
