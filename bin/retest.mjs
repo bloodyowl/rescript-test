@@ -2,9 +2,9 @@
 
 import path from "path";
 import fs from "fs";
-import { JSDOM } from "jsdom";
-import { pathToFileURL } from "url";
-import { glob } from "glob";
+import {JSDOM} from "jsdom";
+import {pathToFileURL} from "url";
+import {glob} from "glob";
 
 let args = process.argv.slice(2);
 let options = {
@@ -38,7 +38,7 @@ if (suffix == null) {
   process.exit(1);
 }
 
-let { autoBoot, runTests } = await import(
+let {autoBoot, runTests} = await import(
   `..${outputDirectoryPrefix}/src/Test${suffix}`
 );
 
@@ -70,13 +70,7 @@ if (globsOrNames.some((item) => item.includes("*"))) {
     globsOrNames.map(
       (globOrName) =>
         new Promise((resolve, reject) => {
-          glob(globOrName, (err, files) => {
-            if (err) {
-              reject(err);
-            } else {
-              resolve(files);
-            }
-          });
+          resolve(glob.globSync(globOrName));
         })
     )
   ).then((arrays) => [...new Set([].concat(...arrays))]);

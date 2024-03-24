@@ -24,6 +24,28 @@ test("Custom comparator", () => {
   assertion(~message="Char code should match", ~operator="isCharCode", isCharCode, a, 98.0)
 })
 
+test("Lazy operator", () => {
+  let a = 1
+  let b = 2
+  assertionWithLazyOperator(
+    ~operator=lazy {
+      "Heavily computed operator"
+    },
+    (a, b) => a != b,
+    a,
+    b,
+  )
+  assertionWithLazyOperator(
+    ~operator=lazy {
+      Console.log("Should not show unless fails")
+      "Heavily computed operator"
+    },
+    (a, b) => a == b,
+    a,
+    b,
+  )
+})
+
 type user = {username: string, id: string}
 
 let userEq = (a, b) => a.id === b.id
