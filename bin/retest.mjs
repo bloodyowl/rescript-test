@@ -70,13 +70,7 @@ if (globsOrNames.some((item) => item.includes("*"))) {
     globsOrNames.map(
       (globOrName) =>
         new Promise((resolve, reject) => {
-          glob(globOrName, (err, files) => {
-            if (err) {
-              reject(err);
-            } else {
-              resolve(files);
-            }
-          });
+          resolve(glob.globSync(globOrName));
         })
     )
   ).then((arrays) => [...new Set([].concat(...arrays))]);

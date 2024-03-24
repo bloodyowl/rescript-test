@@ -1,4 +1,11 @@
 let assertion: (~message: string=?, ~operator: string=?, ('a, 'b) => bool, 'a, 'b) => unit
+let assertionWithLazyOperator: (
+  ~message: string=?,
+  ~operator: Lazy.t<string>=?,
+  ('a, 'b) => bool,
+  'a,
+  'b,
+) => unit
 let pass: (~message: string=?, unit) => unit
 let fail: (~message: string=?, unit) => unit
 let todo: string => unit

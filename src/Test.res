@@ -78,6 +78,24 @@ let assertion = (~message=?, ~operator=?, compare, a, b) => {
   }
 }
 
+let assertionWithLazyOperator = (~message=?, ~operator=?, compare, a, b) => {
+  if compare(a, b) {
+    incr(passCounter)
+    Js.Console.log(`  ${passText}${formatMessage(message)}`)
+  } else {
+    incr(failCounter)
+    Js.Console.log(`  ${failText}${formatMessage(message)}`)
+    Js.Console.log(`    ---`)
+    switch operator {
+    | Some(operator) => Js.Console.log(`    ${pink("operator")}: ${Lazy.force(operator)}`)
+    | None => ()
+    }
+    Js.Console.log2(`    ${pink("left")}: `, a)
+    Js.Console.log2(`    ${pink("right")}:`, b)
+    Js.Console.log(`    ...`)
+  }
+}
+
 let doesNotThrow = (~message=?, func: unit => unit) => {
   try {
     func()
