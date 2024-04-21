@@ -20,631 +20,6 @@ __webpack_require__.d(__webpack_exports__, {
   "testWithSetupAndTeardown": () => (/* binding */ testWithSetupAndTeardown)
 });
 
-;// CONCATENATED MODULE: ../node_modules/rescript/lib/es6/caml_array.js
-
-
-
-function sub(x, offset, len) {
-  var result = new Array(len);
-  var j = 0;
-  var i = offset;
-  while(j < len) {
-    result[j] = x[i];
-    j = j + 1 | 0;
-    i = i + 1 | 0;
-  };
-  return result;
-}
-
-function len(_acc, _l) {
-  while(true) {
-    var l = _l;
-    var acc = _acc;
-    if (!l) {
-      return acc;
-    }
-    _l = l.tl;
-    _acc = l.hd.length + acc | 0;
-    continue ;
-  };
-}
-
-function fill(arr, _i, _l) {
-  while(true) {
-    var l = _l;
-    var i = _i;
-    if (!l) {
-      return ;
-    }
-    var x = l.hd;
-    var l$1 = x.length;
-    var k = i;
-    var j = 0;
-    while(j < l$1) {
-      arr[k] = x[j];
-      k = k + 1 | 0;
-      j = j + 1 | 0;
-    };
-    _l = l.tl;
-    _i = k;
-    continue ;
-  };
-}
-
-function concat(l) {
-  var v = len(0, l);
-  var result = new Array(v);
-  fill(result, 0, l);
-  return result;
-}
-
-function set(xs, index, newval) {
-  if (index < 0 || index >= xs.length) {
-    throw {
-          RE_EXN_ID: "Invalid_argument",
-          _1: "index out of bounds",
-          Error: new Error()
-        };
-  }
-  xs[index] = newval;
-}
-
-function get(xs, index) {
-  if (index < 0 || index >= xs.length) {
-    throw {
-          RE_EXN_ID: "Invalid_argument",
-          _1: "index out of bounds",
-          Error: new Error()
-        };
-  }
-  return xs[index];
-}
-
-function make(len, init) {
-  var b = new Array(len);
-  for(var i = 0; i < len; ++i){
-    b[i] = init;
-  }
-  return b;
-}
-
-function make_float(len) {
-  var b = new Array(len);
-  for(var i = 0; i < len; ++i){
-    b[i] = 0;
-  }
-  return b;
-}
-
-function blit(a1, i1, a2, i2, len) {
-  if (i2 <= i1) {
-    for(var j = 0; j < len; ++j){
-      a2[j + i2 | 0] = a1[j + i1 | 0];
-    }
-    return ;
-  }
-  for(var j$1 = len - 1 | 0; j$1 >= 0; --j$1){
-    a2[j$1 + i2 | 0] = a1[j$1 + i1 | 0];
-  }
-}
-
-function dup(prim) {
-  return prim.slice(0);
-}
-
-
-/* No side effect */
-
-;// CONCATENATED MODULE: ../node_modules/rescript/lib/es6/curry.js
-
-
-
-
-function app(_f, _args) {
-  while(true) {
-    var args = _args;
-    var f = _f;
-    var init_arity = f.length;
-    var arity = init_arity === 0 ? 1 : init_arity;
-    var len = args.length;
-    var d = arity - len | 0;
-    if (d === 0) {
-      return f.apply(null, args);
-    }
-    if (d >= 0) {
-      return (function(f,args){
-      return function (x) {
-        return app(f, args.concat([x]));
-      }
-      }(f,args));
-    }
-    _args = sub(args, arity, -d | 0);
-    _f = f.apply(null, sub(args, 0, arity));
-    continue ;
-  };
-}
-
-function _1(o, a0) {
-  var arity = o.length;
-  if (arity === 1) {
-    return o(a0);
-  } else {
-    switch (arity) {
-      case 1 :
-          return o(a0);
-      case 2 :
-          return function (param) {
-            return o(a0, param);
-          };
-      case 3 :
-          return function (param, param$1) {
-            return o(a0, param, param$1);
-          };
-      case 4 :
-          return function (param, param$1, param$2) {
-            return o(a0, param, param$1, param$2);
-          };
-      case 5 :
-          return function (param, param$1, param$2, param$3) {
-            return o(a0, param, param$1, param$2, param$3);
-          };
-      case 6 :
-          return function (param, param$1, param$2, param$3, param$4) {
-            return o(a0, param, param$1, param$2, param$3, param$4);
-          };
-      case 7 :
-          return function (param, param$1, param$2, param$3, param$4, param$5) {
-            return o(a0, param, param$1, param$2, param$3, param$4, param$5);
-          };
-      default:
-        return app(o, [a0]);
-    }
-  }
-}
-
-function __1(o) {
-  var arity = o.length;
-  if (arity === 1) {
-    return o;
-  } else {
-    return function (a0) {
-      return _1(o, a0);
-    };
-  }
-}
-
-function _2(o, a0, a1) {
-  var arity = o.length;
-  if (arity === 2) {
-    return o(a0, a1);
-  } else {
-    switch (arity) {
-      case 1 :
-          return app(o(a0), [a1]);
-      case 2 :
-          return o(a0, a1);
-      case 3 :
-          return function (param) {
-            return o(a0, a1, param);
-          };
-      case 4 :
-          return function (param, param$1) {
-            return o(a0, a1, param, param$1);
-          };
-      case 5 :
-          return function (param, param$1, param$2) {
-            return o(a0, a1, param, param$1, param$2);
-          };
-      case 6 :
-          return function (param, param$1, param$2, param$3) {
-            return o(a0, a1, param, param$1, param$2, param$3);
-          };
-      case 7 :
-          return function (param, param$1, param$2, param$3, param$4) {
-            return o(a0, a1, param, param$1, param$2, param$3, param$4);
-          };
-      default:
-        return app(o, [
-                    a0,
-                    a1
-                  ]);
-    }
-  }
-}
-
-function __2(o) {
-  var arity = o.length;
-  if (arity === 2) {
-    return o;
-  } else {
-    return function (a0, a1) {
-      return _2(o, a0, a1);
-    };
-  }
-}
-
-function _3(o, a0, a1, a2) {
-  var arity = o.length;
-  if (arity === 3) {
-    return o(a0, a1, a2);
-  } else {
-    switch (arity) {
-      case 1 :
-          return app(o(a0), [
-                      a1,
-                      a2
-                    ]);
-      case 2 :
-          return app(o(a0, a1), [a2]);
-      case 3 :
-          return o(a0, a1, a2);
-      case 4 :
-          return function (param) {
-            return o(a0, a1, a2, param);
-          };
-      case 5 :
-          return function (param, param$1) {
-            return o(a0, a1, a2, param, param$1);
-          };
-      case 6 :
-          return function (param, param$1, param$2) {
-            return o(a0, a1, a2, param, param$1, param$2);
-          };
-      case 7 :
-          return function (param, param$1, param$2, param$3) {
-            return o(a0, a1, a2, param, param$1, param$2, param$3);
-          };
-      default:
-        return app(o, [
-                    a0,
-                    a1,
-                    a2
-                  ]);
-    }
-  }
-}
-
-function __3(o) {
-  var arity = o.length;
-  if (arity === 3) {
-    return o;
-  } else {
-    return function (a0, a1, a2) {
-      return _3(o, a0, a1, a2);
-    };
-  }
-}
-
-function _4(o, a0, a1, a2, a3) {
-  var arity = o.length;
-  if (arity === 4) {
-    return o(a0, a1, a2, a3);
-  } else {
-    switch (arity) {
-      case 1 :
-          return app(o(a0), [
-                      a1,
-                      a2,
-                      a3
-                    ]);
-      case 2 :
-          return app(o(a0, a1), [
-                      a2,
-                      a3
-                    ]);
-      case 3 :
-          return app(o(a0, a1, a2), [a3]);
-      case 4 :
-          return o(a0, a1, a2, a3);
-      case 5 :
-          return function (param) {
-            return o(a0, a1, a2, a3, param);
-          };
-      case 6 :
-          return function (param, param$1) {
-            return o(a0, a1, a2, a3, param, param$1);
-          };
-      case 7 :
-          return function (param, param$1, param$2) {
-            return o(a0, a1, a2, a3, param, param$1, param$2);
-          };
-      default:
-        return app(o, [
-                    a0,
-                    a1,
-                    a2,
-                    a3
-                  ]);
-    }
-  }
-}
-
-function __4(o) {
-  var arity = o.length;
-  if (arity === 4) {
-    return o;
-  } else {
-    return function (a0, a1, a2, a3) {
-      return _4(o, a0, a1, a2, a3);
-    };
-  }
-}
-
-function _5(o, a0, a1, a2, a3, a4) {
-  var arity = o.length;
-  if (arity === 5) {
-    return o(a0, a1, a2, a3, a4);
-  } else {
-    switch (arity) {
-      case 1 :
-          return app(o(a0), [
-                      a1,
-                      a2,
-                      a3,
-                      a4
-                    ]);
-      case 2 :
-          return app(o(a0, a1), [
-                      a2,
-                      a3,
-                      a4
-                    ]);
-      case 3 :
-          return app(o(a0, a1, a2), [
-                      a3,
-                      a4
-                    ]);
-      case 4 :
-          return app(o(a0, a1, a2, a3), [a4]);
-      case 5 :
-          return o(a0, a1, a2, a3, a4);
-      case 6 :
-          return function (param) {
-            return o(a0, a1, a2, a3, a4, param);
-          };
-      case 7 :
-          return function (param, param$1) {
-            return o(a0, a1, a2, a3, a4, param, param$1);
-          };
-      default:
-        return app(o, [
-                    a0,
-                    a1,
-                    a2,
-                    a3,
-                    a4
-                  ]);
-    }
-  }
-}
-
-function __5(o) {
-  var arity = o.length;
-  if (arity === 5) {
-    return o;
-  } else {
-    return function (a0, a1, a2, a3, a4) {
-      return _5(o, a0, a1, a2, a3, a4);
-    };
-  }
-}
-
-function _6(o, a0, a1, a2, a3, a4, a5) {
-  var arity = o.length;
-  if (arity === 6) {
-    return o(a0, a1, a2, a3, a4, a5);
-  } else {
-    switch (arity) {
-      case 1 :
-          return app(o(a0), [
-                      a1,
-                      a2,
-                      a3,
-                      a4,
-                      a5
-                    ]);
-      case 2 :
-          return app(o(a0, a1), [
-                      a2,
-                      a3,
-                      a4,
-                      a5
-                    ]);
-      case 3 :
-          return app(o(a0, a1, a2), [
-                      a3,
-                      a4,
-                      a5
-                    ]);
-      case 4 :
-          return app(o(a0, a1, a2, a3), [
-                      a4,
-                      a5
-                    ]);
-      case 5 :
-          return app(o(a0, a1, a2, a3, a4), [a5]);
-      case 6 :
-          return o(a0, a1, a2, a3, a4, a5);
-      case 7 :
-          return function (param) {
-            return o(a0, a1, a2, a3, a4, a5, param);
-          };
-      default:
-        return app(o, [
-                    a0,
-                    a1,
-                    a2,
-                    a3,
-                    a4,
-                    a5
-                  ]);
-    }
-  }
-}
-
-function __6(o) {
-  var arity = o.length;
-  if (arity === 6) {
-    return o;
-  } else {
-    return function (a0, a1, a2, a3, a4, a5) {
-      return _6(o, a0, a1, a2, a3, a4, a5);
-    };
-  }
-}
-
-function _7(o, a0, a1, a2, a3, a4, a5, a6) {
-  var arity = o.length;
-  if (arity === 7) {
-    return o(a0, a1, a2, a3, a4, a5, a6);
-  } else {
-    switch (arity) {
-      case 1 :
-          return app(o(a0), [
-                      a1,
-                      a2,
-                      a3,
-                      a4,
-                      a5,
-                      a6
-                    ]);
-      case 2 :
-          return app(o(a0, a1), [
-                      a2,
-                      a3,
-                      a4,
-                      a5,
-                      a6
-                    ]);
-      case 3 :
-          return app(o(a0, a1, a2), [
-                      a3,
-                      a4,
-                      a5,
-                      a6
-                    ]);
-      case 4 :
-          return app(o(a0, a1, a2, a3), [
-                      a4,
-                      a5,
-                      a6
-                    ]);
-      case 5 :
-          return app(o(a0, a1, a2, a3, a4), [
-                      a5,
-                      a6
-                    ]);
-      case 6 :
-          return app(o(a0, a1, a2, a3, a4, a5), [a6]);
-      case 7 :
-          return o(a0, a1, a2, a3, a4, a5, a6);
-      default:
-        return app(o, [
-                    a0,
-                    a1,
-                    a2,
-                    a3,
-                    a4,
-                    a5,
-                    a6
-                  ]);
-    }
-  }
-}
-
-function __7(o) {
-  var arity = o.length;
-  if (arity === 7) {
-    return o;
-  } else {
-    return function (a0, a1, a2, a3, a4, a5, a6) {
-      return _7(o, a0, a1, a2, a3, a4, a5, a6);
-    };
-  }
-}
-
-function _8(o, a0, a1, a2, a3, a4, a5, a6, a7) {
-  var arity = o.length;
-  if (arity === 8) {
-    return o(a0, a1, a2, a3, a4, a5, a6, a7);
-  } else {
-    switch (arity) {
-      case 1 :
-          return app(o(a0), [
-                      a1,
-                      a2,
-                      a3,
-                      a4,
-                      a5,
-                      a6,
-                      a7
-                    ]);
-      case 2 :
-          return app(o(a0, a1), [
-                      a2,
-                      a3,
-                      a4,
-                      a5,
-                      a6,
-                      a7
-                    ]);
-      case 3 :
-          return app(o(a0, a1, a2), [
-                      a3,
-                      a4,
-                      a5,
-                      a6,
-                      a7
-                    ]);
-      case 4 :
-          return app(o(a0, a1, a2, a3), [
-                      a4,
-                      a5,
-                      a6,
-                      a7
-                    ]);
-      case 5 :
-          return app(o(a0, a1, a2, a3, a4), [
-                      a5,
-                      a6,
-                      a7
-                    ]);
-      case 6 :
-          return app(o(a0, a1, a2, a3, a4, a5), [
-                      a6,
-                      a7
-                    ]);
-      case 7 :
-          return app(o(a0, a1, a2, a3, a4, a5, a6), [a7]);
-      default:
-        return app(o, [
-                    a0,
-                    a1,
-                    a2,
-                    a3,
-                    a4,
-                    a5,
-                    a6,
-                    a7
-                  ]);
-    }
-  }
-}
-
-function __8(o) {
-  var arity = o.length;
-  if (arity === 8) {
-    return o;
-  } else {
-    return function (a0, a1, a2, a3, a4, a5, a6, a7) {
-      return _8(o, a0, a1, a2, a3, a4, a5, a6, a7);
-    };
-  }
-}
-
-
-/* No side effect */
-
 ;// CONCATENATED MODULE: ../node_modules/rescript/lib/es6/belt_List.js
 
 
@@ -694,7 +69,7 @@ function add(xs, x) {
         };
 }
 
-function belt_List_get(x, n) {
+function get(x, n) {
   if (n < 0) {
     return ;
   } else {
@@ -1146,7 +521,7 @@ function splitAt(lst, n) {
   
 }
 
-function belt_List_concat(xs, ys) {
+function concat(xs, ys) {
   if (!xs) {
     return ys;
   }
@@ -1235,7 +610,7 @@ function makeBy(n, f) {
   return makeByU(n, Curry.__1(f));
 }
 
-function belt_List_make(n, v) {
+function make(n, v) {
   if (n <= 0) {
     return /* [] */0;
   }
@@ -1382,7 +757,7 @@ function concatMany(xs) {
   var len$1 = xs.length;
   var v = xs[len$1 - 1 | 0];
   for(var i = len$1 - 2 | 0; i >= 0; --i){
-    v = belt_List_concat(xs[i], v);
+    v = concat(xs[i], v);
   }
   return v;
 }
@@ -2074,13 +1449,20 @@ var filterWithIndex = (/* unused pure expression or super */ null && (keepWithIn
 
 
 
-var id = {
-  contents: 0
-};
+var idMap = new Map();
 
 function create(str) {
-  id.contents = id.contents + 1 | 0;
-  return str + ("/" + id.contents);
+  var v = idMap.get(str);
+  var id;
+  if (v !== undefined) {
+    var id$1 = v + 1 | 0;
+    idMap.set(str, id$1);
+    id = id$1;
+  } else {
+    idMap.set(str, 1);
+    id = 1;
+  }
+  return str + ("/" + id);
 }
 
 function is_extension(e) {
@@ -2096,7 +1478,7 @@ function exn_slot_name(x) {
 }
 
 
-/* No side effect */
+/* idMap Not a pure module */
 
 ;// CONCATENATED MODULE: ../node_modules/rescript/lib/es6/caml_js_exceptions.js
 
@@ -2125,11 +1507,10 @@ function as_js_exn(exn) {
 }
 
 
-/* No side effect */
+/* Caml_exceptions Not a pure module */
 
 ;// CONCATENATED MODULE: ../src/Test.mjs
 // Generated by ReScript, PLEASE EDIT WITH CARE
-
 
 
 
@@ -2138,7 +1519,7 @@ function exit(code) {
   if (typeof process !== "undefined") {
     process.exit(code);
   } else {
-    console.log("# Exit code: " + code.toString() + "");
+    console.log("# Exit code: " + code.toString());
   }
 }
 
@@ -2211,7 +1592,7 @@ var testTimeoutCounter = {
 function testText(name, index) {
   var index$1 = index.toString();
   var total = testCounter.contents.toString();
-  console.log("" + index$1 + "/" + total + ": " + name + "");
+  console.log(index$1 + "/" + total + ": " + name);
 }
 
 var passCounter = {
@@ -2222,7 +1603,7 @@ var failCounter = {
   contents: 0
 };
 
-function total(param) {
+function total() {
   return (passCounter.contents + failCounter.contents | 0).toString();
 }
 
@@ -2239,22 +1620,22 @@ function registerTest(test) {
 
 function formatMessage(message) {
   if (message !== undefined) {
-    return " - " + message + "";
+    return " - " + message;
   } else {
     return grey(" - No message");
   }
 }
 
 function assertion(message, operator, compare, a, b) {
-  if (_2(compare, a, b)) {
+  if (compare(a, b)) {
     passCounter.contents = passCounter.contents + 1 | 0;
-    console.log("  " + passText + "" + formatMessage(message) + "");
+    console.log("  " + passText + formatMessage(message));
   } else {
     failCounter.contents = failCounter.contents + 1 | 0;
-    console.log("  " + failText + "" + formatMessage(message) + "");
+    console.log("  " + failText + formatMessage(message));
     console.log("    ---");
     if (operator !== undefined) {
-      console.log("    " + pink("operator") + ": " + operator + "");
+      console.log("    " + pink("operator") + ": " + operator);
     }
     console.log("    " + pink("left") + ": ", a);
     console.log("    " + pink("right") + ":", b);
@@ -2264,15 +1645,15 @@ function assertion(message, operator, compare, a, b) {
 
 function doesNotThrow(message, func) {
   try {
-    Curry._1(func, undefined);
+    func();
     passCounter.contents = passCounter.contents + 1 | 0;
-    console.log("  " + passText + "" + formatMessage(message) + "");
+    console.log("  " + passText + formatMessage(message));
     return ;
   }
   catch (raw_exn){
     var exn = Caml_js_exceptions.internalToOCamlException(raw_exn);
     failCounter.contents = failCounter.contents + 1 | 0;
-    console.log("  " + failText + "" + formatMessage(message) + "");
+    console.log("  " + failText + formatMessage(message));
     console.log("    ---");
     console.log("    " + pink("operator") + ": doesNotThrow");
     console.log("    " + pink("error") + ":", exn);
@@ -2283,36 +1664,36 @@ function doesNotThrow(message, func) {
 
 function Test_throws(message, test, func) {
   try {
-    Curry._1(func, undefined);
+    func();
     failCounter.contents = failCounter.contents + 1 | 0;
-    console.log("  " + failText + "" + formatMessage(message) + "");
+    console.log("  " + failText + formatMessage(message));
     return ;
   }
   catch (raw_exn){
     var exn = Caml_js_exceptions.internalToOCamlException(raw_exn);
-    if (test !== undefined && Curry._1(test, exn) === false) {
+    if (test !== undefined && test(exn) === false) {
       failCounter.contents = failCounter.contents + 1 | 0;
-      console.log("  " + failText + "" + formatMessage(message) + "");
+      console.log("  " + failText + formatMessage(message));
       return ;
     }
     passCounter.contents = passCounter.contents + 1 | 0;
-    console.log("  " + passText + "" + formatMessage(message) + "");
+    console.log("  " + passText + formatMessage(message));
     return ;
   }
 }
 
 function todo(message) {
-  console.log("  " + todoText + "" + formatMessage(message) + "");
+  console.log("  " + todoText + formatMessage(message));
 }
 
 function pass(message, param) {
   passCounter.contents = passCounter.contents + 1 | 0;
-  console.log("  " + passText + "" + formatMessage(message) + "");
+  console.log("  " + passText + formatMessage(message));
 }
 
 function fail(message, param) {
   failCounter.contents = failCounter.contents + 1 | 0;
-  console.log("  " + failText + "" + formatMessage(message) + "");
+  console.log("  " + failText + formatMessage(message));
   console.log("    ---");
   console.log("    " + pink("operator") + ": fail");
   console.log("    ...");
@@ -2331,26 +1712,26 @@ function testAsync(name, timeoutOpt, func) {
         var passedAtStart = passCounter.contents;
         testText(name, index);
         try {
-          var timeoutId = setTimeout((function (param) {
+          var timeoutId = setTimeout((function () {
                   var message = "Timed out after " + timeout.toString() + "ms";
                   testTimeoutCounter.contents = testTimeoutCounter.contents + 1 | 0;
-                  console.log("  " + failText + "" + formatMessage(message) + "");
-                  _1(resolve, undefined);
+                  console.log("  " + failText + formatMessage(message));
+                  resolve();
                 }), timeout);
-          return _1(func, (function (planned, param) {
-                        if (planned !== undefined) {
-                          assertion("Correct assertion count", "planned", (function (a, b) {
-                                  return a === b;
-                                }), planned, (passCounter.contents + failCounter.contents | 0) - (passedAtStart + failedAtStart | 0) | 0);
-                        }
-                        clearTimeout(timeoutId);
-                        if (failCounter.contents > failedAtStart) {
-                          testFailedCounter.contents = testFailedCounter.contents + 1 | 0;
-                        } else {
-                          testPassedCounter.contents = testPassedCounter.contents + 1 | 0;
-                        }
-                        _1(resolve, undefined);
-                      }));
+          return func(function (planned, param) {
+                      if (planned !== undefined) {
+                        assertion("Correct assertion count", "planned", (function (a, b) {
+                                return a === b;
+                              }), planned, (passCounter.contents + failCounter.contents | 0) - (passedAtStart + failedAtStart | 0) | 0);
+                      }
+                      clearTimeout(timeoutId);
+                      if (failCounter.contents > failedAtStart) {
+                        testFailedCounter.contents = testFailedCounter.contents + 1 | 0;
+                      } else {
+                        testPassedCounter.contents = testPassedCounter.contents + 1 | 0;
+                      }
+                      resolve();
+                    });
         }
         catch (raw_exn){
           var exn = internalToOCamlException(raw_exn);
@@ -2362,11 +1743,11 @@ function testAsync(name, timeoutOpt, func) {
 
 function testAsyncWith(setup, teardown, name, timeout, func) {
   testAsync(name, timeout, (function (callback) {
-          var value = _1(setup, undefined);
-          _2(func, value, (function (planned, param) {
+          var value = setup();
+          func(value, (function (planned, param) {
                   try {
                     if (teardown !== undefined) {
-                      _1(teardown, value);
+                      teardown(value);
                     }
                     
                   }
@@ -2375,9 +1756,15 @@ function testAsyncWith(setup, teardown, name, timeout, func) {
                     console.error(exn);
                     exit(1);
                   }
-                  _2(callback, planned, undefined);
+                  callback(planned, undefined);
                 }));
         }));
+}
+
+function createTestAsyncWith(setup, teardown) {
+  return function (name, timeout, func) {
+    testAsyncWith(setup, teardown, name, timeout, func);
+  };
 }
 
 function test(name, func) {
@@ -2391,7 +1778,7 @@ function test(name, func) {
         var failedAtStart = failCounter.contents;
         testText(name, index);
         try {
-          _1(func, undefined);
+          func();
         }
         catch (raw_exn){
           var exn = internalToOCamlException(raw_exn);
@@ -2403,34 +1790,40 @@ function test(name, func) {
         } else {
           testPassedCounter.contents = testPassedCounter.contents + 1 | 0;
         }
-        _1(resolve, undefined);
+        resolve();
       });
 }
 
 function testWith(setup, teardown, name, func) {
-  test(name, (function (param) {
-          var value = _1(setup, undefined);
-          _1(func, value);
+  test(name, (function () {
+          var value = setup();
+          func(value);
           if (teardown !== undefined) {
-            return _1(teardown, value);
+            return teardown(value);
           }
           
         }));
+}
+
+function createTestWith(setup, teardown) {
+  return function (name, func) {
+    testWith(setup, teardown, name, func);
+  };
 }
 
 var autoBoot = {
   contents: true
 };
 
-function runTests(param) {
+function runTests() {
   running.contents = true;
-  var onEnd = function (param) {
+  var onEnd = function () {
     console.log("");
-    console.log(grey("# Ran " + String(testCounter.contents) + " tests (" + total(undefined) + " assertions)"));
+    console.log(grey("# Ran " + String(testCounter.contents) + " tests (" + total() + " assertions)"));
     console.log(grey("# " + String(testPassedCounter.contents) + " passed"));
     console.log(grey("# " + String(testFailedCounter.contents + testTimeoutCounter.contents | 0) + " failed" + (
               testTimeoutCounter.contents > 0 ? " (" + String(testTimeoutCounter.contents) + " timed out)" : ""
-            ) + ""));
+            )));
     if ((testFailedCounter.contents + testTimeoutCounter.contents | 0) > 0) {
       return exit(1);
     } else {
@@ -2441,18 +1834,18 @@ function runTests(param) {
   var runNextTest = function (tests) {
     if (tests) {
       var rest = tests.tl;
-      return _1(tests.hd, (function (param) {
-                    runNextTest(rest);
-                  }));
+      return tests.hd(function () {
+                  runNextTest(rest);
+                });
     }
-    _1(onEnd, undefined);
+    onEnd();
   };
   runNextTest(tests);
 }
 
-setTimeout((function (param) {
+setTimeout((function () {
         if (autoBoot.contents) {
-          return runTests(undefined);
+          return runTests();
         }
         
       }), 0);
@@ -2506,6 +1899,11 @@ function compare(a, b) {
   var a_type = typeof a;
   var b_type = typeof b;
   switch (a_type) {
+    case "bigint" :
+        if (b_type === "bigint") {
+          return Caml.float_compare(a, b);
+        }
+        break;
     case "boolean" :
         if (b_type === "boolean") {
           return Caml.bool_compare(a, b);
@@ -2589,8 +1987,8 @@ function compare(a, b) {
           return -1;
         }
       }
-      var tag_a = a.TAG | 0;
-      var tag_b = b.TAG | 0;
+      var tag_a = a.TAG;
+      var tag_b = b.TAG;
       if (tag_a === 248) {
         return Caml.int_compare(a[1], b[1]);
       }
@@ -2721,7 +2119,7 @@ function equal(a, b) {
     return true;
   }
   var a_type = typeof a;
-  if (a_type === "string" || a_type === "number" || a_type === "boolean" || a_type === "undefined" || a === null) {
+  if (a_type === "string" || a_type === "number" || a_type === "bigint" || a_type === "boolean" || a_type === "undefined" || a === null) {
     return false;
   }
   var b_type = typeof b;
@@ -2732,11 +2130,11 @@ function equal(a, b) {
           Error: new Error()
         };
   }
-  if (b_type === "number" || b_type === "undefined" || b === null) {
+  if (b_type === "number" || b_type === "bigint" || b_type === "undefined" || b === null) {
     return false;
   }
-  var tag_a = a.TAG | 0;
-  var tag_b = b.TAG | 0;
+  var tag_a = a.TAG;
+  var tag_b = b.TAG;
   if (tag_a === 248) {
     return a[1] === b[1];
   }
@@ -2822,7 +2220,7 @@ function equal_nullable(x, y) {
 }
 
 function notequal(a, b) {
-  if (typeof a === "number" && typeof b === "number") {
+  if ((typeof a === "number" || typeof a === "bigint") && (typeof b === "number" || typeof b === "bigint")) {
     return a !== b;
   } else {
     return !equal(a, b);
@@ -2830,7 +2228,7 @@ function notequal(a, b) {
 }
 
 function greaterequal(a, b) {
-  if (typeof a === "number" && typeof b === "number") {
+  if ((typeof a === "number" || typeof a === "bigint") && (typeof b === "number" || typeof b === "bigint")) {
     return a >= b;
   } else {
     return compare(a, b) >= 0;
@@ -2838,7 +2236,7 @@ function greaterequal(a, b) {
 }
 
 function greaterthan(a, b) {
-  if (typeof a === "number" && typeof b === "number") {
+  if ((typeof a === "number" || typeof a === "bigint") && (typeof b === "number" || typeof b === "bigint")) {
     return a > b;
   } else {
     return compare(a, b) > 0;
@@ -2846,7 +2244,7 @@ function greaterthan(a, b) {
 }
 
 function lessequal(a, b) {
-  if (typeof a === "number" && typeof b === "number") {
+  if ((typeof a === "number" || typeof a === "bigint") && (typeof b === "number" || typeof b === "bigint")) {
     return a <= b;
   } else {
     return compare(a, b) <= 0;
@@ -2854,7 +2252,7 @@ function lessequal(a, b) {
 }
 
 function lessthan(a, b) {
-  if (typeof a === "number" && typeof b === "number") {
+  if ((typeof a === "number" || typeof a === "bigint") && (typeof b === "number" || typeof b === "bigint")) {
     return a < b;
   } else {
     return compare(a, b) < 0;
@@ -2874,6 +2272,631 @@ function max(x, y) {
     return x;
   } else {
     return y;
+  }
+}
+
+
+/* No side effect */
+
+;// CONCATENATED MODULE: ../node_modules/rescript/lib/es6/caml_array.js
+
+
+
+function sub(x, offset, len) {
+  var result = new Array(len);
+  var j = 0;
+  var i = offset;
+  while(j < len) {
+    result[j] = x[i];
+    j = j + 1 | 0;
+    i = i + 1 | 0;
+  };
+  return result;
+}
+
+function len(_acc, _l) {
+  while(true) {
+    var l = _l;
+    var acc = _acc;
+    if (!l) {
+      return acc;
+    }
+    _l = l.tl;
+    _acc = l.hd.length + acc | 0;
+    continue ;
+  };
+}
+
+function fill(arr, _i, _l) {
+  while(true) {
+    var l = _l;
+    var i = _i;
+    if (!l) {
+      return ;
+    }
+    var x = l.hd;
+    var l$1 = x.length;
+    var k = i;
+    var j = 0;
+    while(j < l$1) {
+      arr[k] = x[j];
+      k = k + 1 | 0;
+      j = j + 1 | 0;
+    };
+    _l = l.tl;
+    _i = k;
+    continue ;
+  };
+}
+
+function caml_array_concat(l) {
+  var v = len(0, l);
+  var result = new Array(v);
+  fill(result, 0, l);
+  return result;
+}
+
+function set(xs, index, newval) {
+  if (index < 0 || index >= xs.length) {
+    throw {
+          RE_EXN_ID: "Invalid_argument",
+          _1: "index out of bounds",
+          Error: new Error()
+        };
+  }
+  xs[index] = newval;
+}
+
+function caml_array_get(xs, index) {
+  if (index < 0 || index >= xs.length) {
+    throw {
+          RE_EXN_ID: "Invalid_argument",
+          _1: "index out of bounds",
+          Error: new Error()
+        };
+  }
+  return xs[index];
+}
+
+function caml_array_make(len, init) {
+  var b = new Array(len);
+  for(var i = 0; i < len; ++i){
+    b[i] = init;
+  }
+  return b;
+}
+
+function make_float(len) {
+  var b = new Array(len);
+  for(var i = 0; i < len; ++i){
+    b[i] = 0;
+  }
+  return b;
+}
+
+function blit(a1, i1, a2, i2, len) {
+  if (i2 <= i1) {
+    for(var j = 0; j < len; ++j){
+      a2[j + i2 | 0] = a1[j + i1 | 0];
+    }
+    return ;
+  }
+  for(var j$1 = len - 1 | 0; j$1 >= 0; --j$1){
+    a2[j$1 + i2 | 0] = a1[j$1 + i1 | 0];
+  }
+}
+
+function dup(prim) {
+  return prim.slice(0);
+}
+
+
+/* No side effect */
+
+;// CONCATENATED MODULE: ../node_modules/rescript/lib/es6/curry.js
+
+
+
+
+function app(_f, _args) {
+  while(true) {
+    var args = _args;
+    var f = _f;
+    var init_arity = f.length;
+    var arity = init_arity === 0 ? 1 : init_arity;
+    var len = args.length;
+    var d = arity - len | 0;
+    if (d === 0) {
+      return f.apply(null, args);
+    }
+    if (d >= 0) {
+      return (function(f,args){
+      return function (x) {
+        return app(f, args.concat([x]));
+      }
+      }(f,args));
+    }
+    _args = sub(args, arity, -d | 0);
+    _f = f.apply(null, sub(args, 0, arity));
+    continue ;
+  };
+}
+
+function _1(o, a0) {
+  var arity = o.length;
+  if (arity === 1) {
+    return o(a0);
+  } else {
+    switch (arity) {
+      case 1 :
+          return o(a0);
+      case 2 :
+          return function (param) {
+            return o(a0, param);
+          };
+      case 3 :
+          return function (param, param$1) {
+            return o(a0, param, param$1);
+          };
+      case 4 :
+          return function (param, param$1, param$2) {
+            return o(a0, param, param$1, param$2);
+          };
+      case 5 :
+          return function (param, param$1, param$2, param$3) {
+            return o(a0, param, param$1, param$2, param$3);
+          };
+      case 6 :
+          return function (param, param$1, param$2, param$3, param$4) {
+            return o(a0, param, param$1, param$2, param$3, param$4);
+          };
+      case 7 :
+          return function (param, param$1, param$2, param$3, param$4, param$5) {
+            return o(a0, param, param$1, param$2, param$3, param$4, param$5);
+          };
+      default:
+        return app(o, [a0]);
+    }
+  }
+}
+
+function __1(o) {
+  var arity = o.length;
+  if (arity === 1) {
+    return o;
+  } else {
+    return function (a0) {
+      return _1(o, a0);
+    };
+  }
+}
+
+function _2(o, a0, a1) {
+  var arity = o.length;
+  if (arity === 2) {
+    return o(a0, a1);
+  } else {
+    switch (arity) {
+      case 1 :
+          return app(o(a0), [a1]);
+      case 2 :
+          return o(a0, a1);
+      case 3 :
+          return function (param) {
+            return o(a0, a1, param);
+          };
+      case 4 :
+          return function (param, param$1) {
+            return o(a0, a1, param, param$1);
+          };
+      case 5 :
+          return function (param, param$1, param$2) {
+            return o(a0, a1, param, param$1, param$2);
+          };
+      case 6 :
+          return function (param, param$1, param$2, param$3) {
+            return o(a0, a1, param, param$1, param$2, param$3);
+          };
+      case 7 :
+          return function (param, param$1, param$2, param$3, param$4) {
+            return o(a0, a1, param, param$1, param$2, param$3, param$4);
+          };
+      default:
+        return app(o, [
+                    a0,
+                    a1
+                  ]);
+    }
+  }
+}
+
+function __2(o) {
+  var arity = o.length;
+  if (arity === 2) {
+    return o;
+  } else {
+    return function (a0, a1) {
+      return _2(o, a0, a1);
+    };
+  }
+}
+
+function _3(o, a0, a1, a2) {
+  var arity = o.length;
+  if (arity === 3) {
+    return o(a0, a1, a2);
+  } else {
+    switch (arity) {
+      case 1 :
+          return app(o(a0), [
+                      a1,
+                      a2
+                    ]);
+      case 2 :
+          return app(o(a0, a1), [a2]);
+      case 3 :
+          return o(a0, a1, a2);
+      case 4 :
+          return function (param) {
+            return o(a0, a1, a2, param);
+          };
+      case 5 :
+          return function (param, param$1) {
+            return o(a0, a1, a2, param, param$1);
+          };
+      case 6 :
+          return function (param, param$1, param$2) {
+            return o(a0, a1, a2, param, param$1, param$2);
+          };
+      case 7 :
+          return function (param, param$1, param$2, param$3) {
+            return o(a0, a1, a2, param, param$1, param$2, param$3);
+          };
+      default:
+        return app(o, [
+                    a0,
+                    a1,
+                    a2
+                  ]);
+    }
+  }
+}
+
+function __3(o) {
+  var arity = o.length;
+  if (arity === 3) {
+    return o;
+  } else {
+    return function (a0, a1, a2) {
+      return _3(o, a0, a1, a2);
+    };
+  }
+}
+
+function _4(o, a0, a1, a2, a3) {
+  var arity = o.length;
+  if (arity === 4) {
+    return o(a0, a1, a2, a3);
+  } else {
+    switch (arity) {
+      case 1 :
+          return app(o(a0), [
+                      a1,
+                      a2,
+                      a3
+                    ]);
+      case 2 :
+          return app(o(a0, a1), [
+                      a2,
+                      a3
+                    ]);
+      case 3 :
+          return app(o(a0, a1, a2), [a3]);
+      case 4 :
+          return o(a0, a1, a2, a3);
+      case 5 :
+          return function (param) {
+            return o(a0, a1, a2, a3, param);
+          };
+      case 6 :
+          return function (param, param$1) {
+            return o(a0, a1, a2, a3, param, param$1);
+          };
+      case 7 :
+          return function (param, param$1, param$2) {
+            return o(a0, a1, a2, a3, param, param$1, param$2);
+          };
+      default:
+        return app(o, [
+                    a0,
+                    a1,
+                    a2,
+                    a3
+                  ]);
+    }
+  }
+}
+
+function __4(o) {
+  var arity = o.length;
+  if (arity === 4) {
+    return o;
+  } else {
+    return function (a0, a1, a2, a3) {
+      return _4(o, a0, a1, a2, a3);
+    };
+  }
+}
+
+function _5(o, a0, a1, a2, a3, a4) {
+  var arity = o.length;
+  if (arity === 5) {
+    return o(a0, a1, a2, a3, a4);
+  } else {
+    switch (arity) {
+      case 1 :
+          return app(o(a0), [
+                      a1,
+                      a2,
+                      a3,
+                      a4
+                    ]);
+      case 2 :
+          return app(o(a0, a1), [
+                      a2,
+                      a3,
+                      a4
+                    ]);
+      case 3 :
+          return app(o(a0, a1, a2), [
+                      a3,
+                      a4
+                    ]);
+      case 4 :
+          return app(o(a0, a1, a2, a3), [a4]);
+      case 5 :
+          return o(a0, a1, a2, a3, a4);
+      case 6 :
+          return function (param) {
+            return o(a0, a1, a2, a3, a4, param);
+          };
+      case 7 :
+          return function (param, param$1) {
+            return o(a0, a1, a2, a3, a4, param, param$1);
+          };
+      default:
+        return app(o, [
+                    a0,
+                    a1,
+                    a2,
+                    a3,
+                    a4
+                  ]);
+    }
+  }
+}
+
+function __5(o) {
+  var arity = o.length;
+  if (arity === 5) {
+    return o;
+  } else {
+    return function (a0, a1, a2, a3, a4) {
+      return _5(o, a0, a1, a2, a3, a4);
+    };
+  }
+}
+
+function _6(o, a0, a1, a2, a3, a4, a5) {
+  var arity = o.length;
+  if (arity === 6) {
+    return o(a0, a1, a2, a3, a4, a5);
+  } else {
+    switch (arity) {
+      case 1 :
+          return app(o(a0), [
+                      a1,
+                      a2,
+                      a3,
+                      a4,
+                      a5
+                    ]);
+      case 2 :
+          return app(o(a0, a1), [
+                      a2,
+                      a3,
+                      a4,
+                      a5
+                    ]);
+      case 3 :
+          return app(o(a0, a1, a2), [
+                      a3,
+                      a4,
+                      a5
+                    ]);
+      case 4 :
+          return app(o(a0, a1, a2, a3), [
+                      a4,
+                      a5
+                    ]);
+      case 5 :
+          return app(o(a0, a1, a2, a3, a4), [a5]);
+      case 6 :
+          return o(a0, a1, a2, a3, a4, a5);
+      case 7 :
+          return function (param) {
+            return o(a0, a1, a2, a3, a4, a5, param);
+          };
+      default:
+        return app(o, [
+                    a0,
+                    a1,
+                    a2,
+                    a3,
+                    a4,
+                    a5
+                  ]);
+    }
+  }
+}
+
+function __6(o) {
+  var arity = o.length;
+  if (arity === 6) {
+    return o;
+  } else {
+    return function (a0, a1, a2, a3, a4, a5) {
+      return _6(o, a0, a1, a2, a3, a4, a5);
+    };
+  }
+}
+
+function _7(o, a0, a1, a2, a3, a4, a5, a6) {
+  var arity = o.length;
+  if (arity === 7) {
+    return o(a0, a1, a2, a3, a4, a5, a6);
+  } else {
+    switch (arity) {
+      case 1 :
+          return app(o(a0), [
+                      a1,
+                      a2,
+                      a3,
+                      a4,
+                      a5,
+                      a6
+                    ]);
+      case 2 :
+          return app(o(a0, a1), [
+                      a2,
+                      a3,
+                      a4,
+                      a5,
+                      a6
+                    ]);
+      case 3 :
+          return app(o(a0, a1, a2), [
+                      a3,
+                      a4,
+                      a5,
+                      a6
+                    ]);
+      case 4 :
+          return app(o(a0, a1, a2, a3), [
+                      a4,
+                      a5,
+                      a6
+                    ]);
+      case 5 :
+          return app(o(a0, a1, a2, a3, a4), [
+                      a5,
+                      a6
+                    ]);
+      case 6 :
+          return app(o(a0, a1, a2, a3, a4, a5), [a6]);
+      case 7 :
+          return o(a0, a1, a2, a3, a4, a5, a6);
+      default:
+        return app(o, [
+                    a0,
+                    a1,
+                    a2,
+                    a3,
+                    a4,
+                    a5,
+                    a6
+                  ]);
+    }
+  }
+}
+
+function __7(o) {
+  var arity = o.length;
+  if (arity === 7) {
+    return o;
+  } else {
+    return function (a0, a1, a2, a3, a4, a5, a6) {
+      return _7(o, a0, a1, a2, a3, a4, a5, a6);
+    };
+  }
+}
+
+function _8(o, a0, a1, a2, a3, a4, a5, a6, a7) {
+  var arity = o.length;
+  if (arity === 8) {
+    return o(a0, a1, a2, a3, a4, a5, a6, a7);
+  } else {
+    switch (arity) {
+      case 1 :
+          return app(o(a0), [
+                      a1,
+                      a2,
+                      a3,
+                      a4,
+                      a5,
+                      a6,
+                      a7
+                    ]);
+      case 2 :
+          return app(o(a0, a1), [
+                      a2,
+                      a3,
+                      a4,
+                      a5,
+                      a6,
+                      a7
+                    ]);
+      case 3 :
+          return app(o(a0, a1, a2), [
+                      a3,
+                      a4,
+                      a5,
+                      a6,
+                      a7
+                    ]);
+      case 4 :
+          return app(o(a0, a1, a2, a3), [
+                      a4,
+                      a5,
+                      a6,
+                      a7
+                    ]);
+      case 5 :
+          return app(o(a0, a1, a2, a3, a4), [
+                      a5,
+                      a6,
+                      a7
+                    ]);
+      case 6 :
+          return app(o(a0, a1, a2, a3, a4, a5), [
+                      a6,
+                      a7
+                    ]);
+      case 7 :
+          return app(o(a0, a1, a2, a3, a4, a5, a6), [a7]);
+      default:
+        return app(o, [
+                    a0,
+                    a1,
+                    a2,
+                    a3,
+                    a4,
+                    a5,
+                    a6,
+                    a7
+                  ]);
+    }
+  }
+}
+
+function __8(o) {
+  var arity = o.length;
+  if (arity === 8) {
+    return o;
+  } else {
+    return function (a0, a1, a2, a3, a4, a5, a6, a7) {
+      return _8(o, a0, a1, a2, a3, a4, a5, a6, a7);
+    };
   }
 }
 
@@ -3552,8 +3575,8 @@ function checkInvariantInternal(_v) {
       throw {
             RE_EXN_ID: "Assert_failure",
             _1: [
-              "belt_internalAVLtree.ml",
-              373,
+              "belt_internalAVLtree.res",
+              457,
               4
             ],
             Error: new Error()
@@ -4082,6 +4105,16 @@ function float_compare(x, y) {
     return -1;
   } else {
     return 0;
+  }
+}
+
+function bigint_compare(x, y) {
+  if (x < y) {
+    return -1;
+  } else if (x === y) {
+    return 0;
+  } else {
+    return 1;
   }
 }
 
@@ -5236,7 +5269,6 @@ var belt_MapString_mapWithKey = mapWithKey;
 
 
 
-
 function TestAllPass_equal(message, a, b) {
   assertion(message, "equal", (function (a, b) {
           return a === b;
@@ -5248,13 +5280,13 @@ function deepEqual(message, a, b) {
 }
 
 testAsync("Async", undefined, (function (cb) {
-        setTimeout((function (param) {
+        setTimeout((function () {
                 pass(undefined, undefined);
-                _2(cb, undefined, undefined);
+                cb(undefined, undefined);
               }), 100);
       }));
 
-test("Equals", (function (param) {
+test("Equals", (function () {
         TestAllPass_equal(undefined, 1, 1);
       }));
 
@@ -5262,11 +5294,11 @@ function isCharCode(a, b) {
   return a.charCodeAt(0) === b;
 }
 
-test("Custom comparator", (function (param) {
+test("Custom comparator", (function () {
         assertion("Char code should match", "isCharCode", isCharCode, "a", 97.0);
       }));
 
-test("DeepEquals", (function (param) {
+test("DeepEquals", (function () {
         TestAllPass_equal(undefined, "user", "user");
         deepEqual(undefined, {
               username: "user",
@@ -5277,37 +5309,31 @@ test("DeepEquals", (function (param) {
             });
       }));
 
-function testWithSetup(param, param$1, param$2) {
-  return testWith((function (param) {
-                return {
-                        contents: 0
-                      };
-              }), param, param$1, param$2);
-}
+var testWithSetup = createTestWith((function () {
+        return {
+                contents: 0
+              };
+      }), undefined);
 
-testWithSetup(undefined, "Setup", (function (someRef) {
+testWithSetup("Setup", (function (someRef) {
         someRef.contents = someRef.contents + 1 | 0;
         TestAllPass_equal(undefined, someRef.contents, 1);
       }));
 
-testWithSetup(undefined, "Setup", (function (someRef) {
+testWithSetup("Setup", (function (someRef) {
         TestAllPass_equal(undefined, someRef.contents, 0);
         someRef.contents = someRef.contents + 1 | 0;
         someRef.contents = someRef.contents + 1 | 0;
         TestAllPass_equal(undefined, someRef.contents, 2);
       }));
 
-var partial_arg = (function (someRef) {
-    someRef.contents = 0;
-  });
-
-function testWithSetupAndTeardown(param, param$1) {
-  return testWith((function (param) {
-                return {
-                        contents: 0
-                      };
-              }), partial_arg, param, param$1);
-}
+var testWithSetupAndTeardown = createTestWith((function () {
+        return {
+                contents: 0
+              };
+      }), (function (someRef) {
+        someRef.contents = 0;
+      }));
 
 testWithSetupAndTeardown("Setup & teardown", (function (someRef) {
         someRef.contents = someRef.contents + 1 | 0;
@@ -5321,22 +5347,18 @@ testWithSetupAndTeardown("Setup & teardown 2", (function (someRef) {
         TestAllPass_equal(undefined, someRef.contents, 2);
       }));
 
-var partial_arg$1 = (function (someRef) {
-    someRef.contents = 0;
-  });
-
-function testAsyncWithSetupAndTeardown(param, param$1, param$2) {
-  return testAsyncWith((function (param) {
-                return {
-                        contents: 0
-                      };
-              }), partial_arg$1, param, param$1, param$2);
-}
+var testAsyncWithSetupAndTeardown = createTestAsyncWith((function () {
+        return {
+                contents: 0
+              };
+      }), (function (someRef) {
+        someRef.contents = 0;
+      }));
 
 testAsyncWithSetupAndTeardown("Async setup & teardown", undefined, (function (someRef, callback) {
         someRef.contents = someRef.contents + 1 | 0;
         TestAllPass_equal(undefined, someRef.contents, 1);
-        _2(callback, undefined, undefined);
+        callback(undefined, undefined);
       }));
 
 testAsyncWithSetupAndTeardown("Async setup & teardown 2", undefined, (function (someRef, callback) {
@@ -5344,7 +5366,7 @@ testAsyncWithSetupAndTeardown("Async setup & teardown 2", undefined, (function (
         someRef.contents = someRef.contents + 1 | 0;
         someRef.contents = someRef.contents + 1 | 0;
         TestAllPass_equal(undefined, someRef.contents, 2);
-        _2(callback, undefined, undefined);
+        callback(undefined, undefined);
       }));
 
 function stringMapEqual(message, a, b) {
@@ -5355,7 +5377,7 @@ function stringMapEqual(message, a, b) {
         }), a, b);
 }
 
-test("Cutom operator Equals", (function (param) {
+test("Cutom operator Equals", (function () {
         stringMapEqual(undefined, belt_MapString_fromArray([[
                     "a",
                     1
