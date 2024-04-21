@@ -12,9 +12,9 @@
       "type": "dev"
     }
   ],
-  "bs-dev-dependencies": ["rescript-js"],
+  "bs-dev-dependencies": ["@rescript/core"],
   "package-specs": {
-    "module": "es6",
+    "module": "esmodule",
     "in-source": true
   },
   "suffix": ".mjs",

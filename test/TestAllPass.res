@@ -1,4 +1,4 @@
-open ReScriptJs.Js
+open RescriptCore
 open Test
 
 let equal = (~message=?, a, b) => assertion(~message?, ~operator="equal", (a, b) => a === b, a, b)
@@ -38,7 +38,7 @@ test("DeepEquals", () => {
   deepEqual(a, b)
 })
 
-let testWithSetup = testWith(~setup=() => ref(0))
+let testWithSetup = createTestWith(~setup=() => ref(0))
 
 testWithSetup("Setup", someRef => {
   incr(someRef)
@@ -52,7 +52,10 @@ testWithSetup("Setup", someRef => {
   equal(someRef.contents, 2)
 })
 
-let testWithSetupAndTeardown = testWith(~setup=() => ref(0), ~teardown=someRef => someRef := 0)
+let testWithSetupAndTeardown = createTestWith(
+  ~setup=() => ref(0),
+  ~teardown=someRef => someRef := 0,
+)
 
 testWithSetupAndTeardown("Setup & teardown", someRef => {
   incr(someRef)
@@ -66,7 +69,7 @@ testWithSetupAndTeardown("Setup & teardown 2", someRef => {
   equal(someRef.contents, 2)
 })
 
-let testAsyncWithSetupAndTeardown = testAsyncWith(
+let testAsyncWithSetupAndTeardown = createTestAsyncWith(
   ~setup=() => ref(0),
   ~teardown=someRef => someRef := 0,
 )

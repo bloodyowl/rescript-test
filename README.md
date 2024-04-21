@@ -115,9 +115,9 @@ Outputs:
 ### Tests
 
 - `test(name, body)`
-- `testWith(~setup: unit => 'a, ~teardown: 'a => unit=?, name, body: 'a => unit)`
+- `createTestWith(~setup: unit => 'a, ~teardown: 'a => unit=?` -> `test`
 - `testAsync(name, body)`
-- `testAsyncWith(~setup: unit => 'a, ~teardown: 'a => unit=?, name, body: ('a, cb) => unit)`
+- `createTestAsyncWith(~setup: unit => 'a, ~teardown: 'a => unit=?, name, body: ('a, cb) => unit)` -> `testAsync`
 
 ### Operators
 
@@ -160,7 +160,7 @@ assertion(~message?, ~operator="deepEqual", (a, b) => a == b, a, b)
 The `setup` function returns a clean context for the test, the `teardown` function resets it.
 
 ```rescript
-let testWithRef = testWith(~setup=() => ref(0), ~teardown=someRef => someRef := 0)
+let testWithRef = createTestWith(~setup=() => ref(0), ~teardown=someRef => someRef := 0)
 
 testWithRef("Setup & teardown", someRef => {
   incr(someRef)
@@ -185,8 +185,8 @@ let cleanupContainer = container => {
   remove(container)
 }
 
-let testWithReact = testWith(~setup=createContainer, ~teardown=cleanupContainer)
-let testAsyncWithReact = testAsyncWith(~setup=createContainer, ~teardown=cleanupContainer)
+let testWithReact = createTestWith(~setup=createContainer, ~teardown=cleanupContainer)
+let testAsyncWithReact = createTestAsyncWith(~setup=createContainer, ~teardown=cleanupContainer)
 ```
 
 And then use it:

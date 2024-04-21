@@ -1,4 +1,4 @@
-open ReScriptJs.Js
+open RescriptCore
 open Belt
 open Test
 
@@ -58,7 +58,7 @@ test("DeepEquals", () => {
   let b = {username: "user", id: "a"}
   equal(a.username, b.username)
   equal(a.username, b.id)
-  equal(Undefined.make(1), Undefined.empty)
+  equal(Nullable.make(1), Nullable.undefined)
   deepEqual(a, b)
   todo("Check that user is ok")
 })

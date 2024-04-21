@@ -196,6 +196,9 @@ let testAsyncWith = (~setup, ~teardown=?, name, ~timeout=?, func) => {
   })
 }
 
+let createTestAsyncWith = (~setup, ~teardown=?) => (name, ~timeout=?, func) =>
+  testAsyncWith(~setup, ~teardown?, name, ~timeout?, func)
+
 let test = (name, func) => {
   if running.contents {
     Js.Console.error(
@@ -235,6 +238,9 @@ let testWith = (~setup, ~teardown=?, name, func) => {
     }
   })
 }
+
+let createTestWith = (~setup, ~teardown=?) => (name, func) =>
+  testWith(~setup, ~teardown?, name, func)
 
 let autoBoot = ref(true)
 

@@ -1,4 +1,4 @@
-open ReScriptJs.Js
+open RescriptCore
 open Test
 
 let intEqual = (~message=?, a: int, b: int) =>
