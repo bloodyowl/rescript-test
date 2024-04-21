@@ -1,4 +1,4 @@
-open ReScriptJs.Js
+open RescriptCore
 open Test
 
 let equal = (~message=?, a, b) => assertion(~message?, ~operator="equal", (a, b) => a === b, a, b)

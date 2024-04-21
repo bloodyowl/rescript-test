@@ -17,7 +17,14 @@ let testAsyncWith: (
   ('a, (~planned: int=?, unit) => unit) => unit,
 ) => unit
 
+let createTestAsyncWith: (
+  ~setup: unit => 'a,
+  ~teardown: 'a => unit=?,
+) => (string, ~timeout: int=?, ('a, (~planned: int=?, unit) => unit) => unit) => unit
+
 let testWith: (~setup: unit => 'a, ~teardown: 'a => unit=?, string, 'a => unit) => unit
+
+let createTestWith: (~setup: unit => 'a, ~teardown: 'a => unit=?) => (string, 'a => unit) => unit
 
 let autoBoot: ref<bool>
 

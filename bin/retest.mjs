@@ -67,18 +67,7 @@ let globsOrNames = args.filter((item) => !options[item]);
 
 if (globsOrNames.some((item) => item.includes("*"))) {
   globsOrNames = await Promise.all(
-    globsOrNames.map(
-      (globOrName) =>
-        new Promise((resolve, reject) => {
-          glob(globOrName, (err, files) => {
-            if (err) {
-              reject(err);
-            } else {
-              resolve(files);
-            }
-          });
-        })
-    )
+    globsOrNames.map((globOrName) => glob(globOrName))
   ).then((arrays) => [...new Set([].concat(...arrays))]);
 }
 
