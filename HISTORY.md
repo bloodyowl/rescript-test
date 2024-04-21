@@ -1,3 +1,11 @@
+## 7.0.0
+
+Changes:
+
+- Upgrade to ReScript 11 (84dd417)
+- curried `testWith` -> uncurried `createTestWith` (84dd417)
+- curried `testAsyncWith` -> uncurried `createTestAsyncWith` (84dd417)
+
 ## 6.0.0
 
 Changes:
