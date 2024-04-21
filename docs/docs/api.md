@@ -20,7 +20,7 @@ The `test` function identifies a test suite. You give it a name to easily find i
 ```js title="Add_test.res"
 test("Add", () => {
   // Your assertions
-})
+});
 ```
 
 :::note
@@ -29,13 +29,13 @@ Nesting `test` suites is not allowed.
 
 ### testAsync
 
-`testAsync` works the same way, but gives the function an extra parameter, a `done` function to call when your test is done. 
+`testAsync` works the same way, but gives the function an extra parameter, a `done` function to call when your test is done.
 
 ```js title="AsyncWorkflow_test.res"
 testAsync("Async workflow", (done) => {
   // Your async assertions
-  done()
-})
+  done();
+});
 ```
 
 #### Timeout
@@ -70,7 +70,7 @@ The API we provide is pretty similar to `test` & `testAsync`, they're nearly the
 - A `teardown` function that takes the `value` and lets you act on it
 - `value` that's passed to your test function body
 
-### testWith
+### createTestWith
 
 ```js title="SetupAndTeardown_test.res"
 let setup = () => {
@@ -83,7 +83,9 @@ let teardown = element => {
   element["remove"](. )
 }
 
-testWith(~setup, ~teardown, "Setup & teardown", (element) => {
+const testWithElement = createTestWith(~setup, ~teardown)
+
+testWithElement("Setup & teardown", (element) => {
   // Your assertions that use `element`
 })
 ```
@@ -109,10 +111,10 @@ And reuse it across your tests!
 ```js title="SomeDOMTests_test.res"
 testWithElement("Some DOM logic", (element) => {
   // Your assertions that use `element`
-})
+});
 ```
 
-### testAsyncWith
+### createTestAsyncWith
 
 Pretty much the same story there, expect we have the extra `done` argument
 
@@ -127,7 +129,7 @@ let teardown = element => {
   element["remove"](. )
 }
 
-let testWithElement = testAsyncWith(~setup, ~teardown)
+let testWithElement = createTestAsyncWith(~setup, ~teardown)
 ```
 
 And there we go:
@@ -135,6 +137,6 @@ And there we go:
 ```js title="SomeDOMTests_test.res"
 testAsyncWithElement("Some DOM logic", (element, done) => {
   // Your async assertions that use `element`
-  done()
-})
+  done();
+});
 ```
