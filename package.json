@@ -28,7 +28,7 @@
   },
   "dependencies": {
     "@rescript/core": "^1.3.0",
-    "glob": "^10.3.0",
+    "glob": "^10.3.12",
     "jsdom": "^23.1.0"
   }
 }
