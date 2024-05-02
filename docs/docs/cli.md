@@ -11,7 +11,7 @@ ReScript Test comes with a little `retest` CLI to help your run your tests.
 $ retest 'tests/*.mjs'
 ```
 
-Note here that we're using the `mjs` extension. This gives the runner infer the information about which extension you've specified in your compiler. It can be either of the following:
+Note here that we're using the `mjs` extension. This lets the runner infer which extension you've specified in your compiler. The extension can be any of the following:
 
 - `.bs.js`
 - `.js`
