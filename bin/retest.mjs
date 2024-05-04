@@ -11,7 +11,7 @@ let options = {
   "--with-dom": "--with-dom",
 };
 
-let allowedSuffixes = [".bs.js", ".js", ".mjs", ".cjs"];
+let allowedSuffixes = [".res.js", ".res.mjs", ".bs.js", ".js", ".mjs", ".cjs"];
 
 let firstFile = args.filter((item) => !options[item])[0];
 
