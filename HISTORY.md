@@ -1,3 +1,9 @@
+## 7.0.1
+
+Changes:
+
+- Support more file extensions (36d1292) (thanks @brettcannon)
+
 ## 7.0.0
 
 Changes:
